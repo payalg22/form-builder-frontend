@@ -1,0 +1,55 @@
+.container,
+.main {
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+
+.container > img, .triangle {
+    position: absolute;
+}
+
+
+
+.right {
+  right: 0;
+  top: 20%;
+}
+
+.bottom {
+  bottom: 0;
+  right: 20%;
+}
+
+.top {
+    position: absolute;
+    left: 15px;
+    bottom: 25px;
+}
+
+.triangle {
+    left: 10%;
+    top: 35%;
+}
+
+.main {
+  padding: 5%;
+  box-sizing: border-box;
+}
+
+.main,
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.back {
+  align-self: flex-start;
+}
+
+.form {
+  flex: 1;
+  width: 100%;
+}
