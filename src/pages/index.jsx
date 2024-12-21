@@ -1,6 +1,6 @@
 import Login from "./user/Login";
 import Register from "./user/Register";
 import Landing from "./landing/LandingPage";
-import Home from "./home/Home";
+import Dashboard from "./dashboard/Dashboard";
 
-export { Login, Register, Landing, Home };
+export { Login, Register, Landing, Dashboard };

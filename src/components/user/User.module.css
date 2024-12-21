@@ -1,9 +1,10 @@
-.container,
-.main {
-  height: 100%;
+.container {
+  height: inherit;
   width: 100%;
   position: relative;
 }
+
+/*graphics images */
 
 .container > img, .triangle {
     position: absolute;
@@ -30,9 +31,12 @@
     top: 35%;
 }
 
+/* form section */
+
 .main {
   padding: 5%;
   box-sizing: border-box;
+  height: 100%;
 }
 
 .main,
@@ -96,9 +100,10 @@ input.submit {
   width: 100%;
 }
 
-.footer {
-    font-size: 1.1em;
+p.footer {
+    margin: 10px;
     align-self: center;
+    font-size: 0.875em;
 }
 
 .footer > span {

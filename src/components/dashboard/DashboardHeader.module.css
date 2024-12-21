@@ -1,0 +1,32 @@
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10%;
+    border-bottom: 1px solid var(--border-color);
+    padding: 15px 5%;
+    width: 100%;
+    box-sizing: border-box;
+    font-family: 'Open sans', sans-serif;
+}
+
+.workspace {
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 10px;
+    width: 300px;
+    text-align: center;
+    font-weight: 500;
+    margin-right: 5%;
+}
+
+.share {
+    background-color: rgba(26, 95, 255, 1);
+    padding: 10px 20px;
+    border-radius: 4px;
+    color: #ffffff;
+    font-weight: 600;
+    border: none;
+    font-size: 14px;
+    font-family: 'Open Sans', sans-serif;
+}

@@ -1,6 +1,6 @@
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Home, Landing, Login, Register } from "./pages/index";
+import { Dashboard, Landing, Login, Register } from "./pages/index";
 import { useEffect, useState } from "react";
 import { useApp } from "./context/AppContext";
 
@@ -14,14 +14,16 @@ function App() {
 
   return (
     <div className={`main ${theme}`}>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Landing />} />
-          <Route path="/login/:referenceid" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/home" element={<Home />} />
-        </Routes>
-      </BrowserRouter>
+      <div className="content">
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Landing />} />
+            <Route path="/login/:referenceid" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+          </Routes>
+        </BrowserRouter>
+      </div>
     </div>
   );
 }
