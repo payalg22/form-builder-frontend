@@ -1,12 +1,23 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "./User.module.css";
-import back from "../../assets/arrow_back.png";
-import rightcircle from "../../assets/semicirlce.png";
-import bottomcircle from "../../assets/semicircle_bottom.png";
-import triangletop from "../../assets/triangle_front.png";
-import triangle from "../../assets/triangle_back.png";
+import {
+  back,
+  rightcircle,
+  bottomcircle,
+  triangle,
+  triangletop,
+  google,
+} from "../../assets/index";
+import Form from "./Form";
 
-export default function User({ isLogin }) {
+export default function User({ isLogin, fields, action }) {
+  const navigate = useNavigate();
+  const label = isLogin ? "Log In" : "Sign Up";
+  const path = isLogin ? "/register" : "/login/new";
+  const link = isLogin ? "Register Now" : "Login";
+  const display = isLogin ? "Don't" : "Already";
+
   return (
     <div className={styles.container}>
       <img src={rightcircle} className={styles.right} />
@@ -15,10 +26,20 @@ export default function User({ isLogin }) {
         <img src={triangletop} className={styles.top} />
       </div>
       <div className={styles.main}>
-        <img src={back} className={styles.back} />
-        <div className={styles.form}>
-          <p>{isLogin ? "Login" : "Register"}</p>
-        </div>
+        <img src={back} className={styles.back} onClick={() => navigate(-1)} />
+        <form className={styles.form} onSubmit={action}>
+          <Form fields={fields} />
+          <input type="submit" className={styles.submit} value={label} />
+          <p>OR</p>
+          <div className={styles.submit}>
+            <img src={google} className={styles.google} />
+            <p>{label} with Google</p>
+          </div>
+          <p className={styles.footer}>
+            {display} have an account?{" "}
+            <span onClick={() => navigate(path)}>{link}</span>
+          </p>
+        </form>
       </div>
       <img src={bottomcircle} className={styles.bottom} />
     </div>

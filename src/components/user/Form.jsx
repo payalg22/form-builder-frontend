@@ -5,9 +5,9 @@ function FormField({ field }) {
   const { type, placeholder, label, value, onChange, error } = field;
   return (
     <div className={styles.container}>
-      <label className={styles.label}>{label}</label>
+      <label className={error ? styles.error : styles.label}>{label}</label>
       <input
-        className={styles.input}
+        className={error ? styles.error : styles.input}
         type={type}
         placeholder={placeholder}
         value={value}
@@ -18,13 +18,12 @@ function FormField({ field }) {
   );
 }
 
-export default function Form({ fields, onAction, submit }) {
+export default function Form({ fields }) {
   return (
-    <form className={styles.form} onSubmit={onAction}>
+    <>
       {fields.map((field, idx) => {
         return <FormField key={idx} field={field} />;
       })}
-      <input type="submit" value={submit} className={styles.submit} />
-    </form>
+    </>
   );
 }

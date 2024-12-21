@@ -1,6 +1,6 @@
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Landing, Login, Register } from "./pages/index";
+import { Home, Landing, Login, Register } from "./pages/index";
 import { useEffect, useState } from "react";
 import { useApp } from "./context/AppContext";
 
@@ -17,8 +17,9 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Landing />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/login/:referenceid" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/home" element={<Home />} />
         </Routes>
       </BrowserRouter>
     </div>

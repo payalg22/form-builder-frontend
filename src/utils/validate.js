@@ -59,10 +59,10 @@ export const validateSignUp = ({ name, email, password, confirmPassword }) => {
   const isErrorPassword = validatePassword(password);
   let isErrorConfirm = false;
 
-  if (!isErrorPassword) {
-    if (password !== confirmPassword) {
-      isErrorConfirm = "Enter same passwords in both fields";
-    }
+  if (!confirmPassword) {
+    isErrorConfirm = "Please confirm password";
+  } else if (password !== confirmPassword) {
+    isErrorConfirm = "Enter same passwords in both fields";
   }
 
   if (!isErrorEmail && !isErrorPassword && !isErrorName && !isErrorConfirm) {
@@ -81,8 +81,13 @@ export const validateSignUp = ({ name, email, password, confirmPassword }) => {
 export const validateUpdate = ({ name, email, oldPass, newPass }) => {
   const isErrName = validateName(name);
   const isErrEmail = validateEmail(email);
-  const isErrNewPass = validatePassword(newPass);
-  const isErrOldPass = oldPass === "" ? "Please enter password" : false;
+  let isErrNewPass = false;
+  let isErrOldPass = false;
+
+  if (newPass || oldPass) {
+    isErrNewPass = validatePassword(newPass);
+    isErrOldPass = oldPass === "" || "Please enter password";
+  }
 
   if (!isErrEmail && !isErrName && !isErrNewPass && !isErrOldPass) {
     return true;

@@ -9,8 +9,6 @@
     position: absolute;
 }
 
-
-
 .right {
   right: 0;
   top: 20%;
@@ -43,13 +41,67 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 10px;
+}
+
+.form > * {
+    width: 25%;
+    font-family: 'Poppins', serif;
+    font-size: 0.875em;
+    text-align: center;
+}
+
+.form > p {
+    font-size: 0.75em;
+    font-weight: 300;
+    letter-spacing: 0.03em;
+    margin: 0;
+}
+
+.submit {
+    height: 40px;
+    background-color: #1A5FFF;
+    color: #FFFFFF;
+    box-shadow: 0px 4px 10px 0px #E9444B40;
+    border-radius: 12px;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 40px;
+}
+
+input.submit {
+    margin-top: 10px;
+}
+
+.google {
+    background-color: #FFFFFF;
+    padding: 2.5px;
+    border-radius: 50%;
+    margin-left: 15px;
+    margin-right: 25px;
 }
 
 .back {
   align-self: flex-start;
+  cursor: pointer;
 }
 
 .form {
   flex: 1;
   width: 100%;
+}
+
+.footer {
+    font-size: 1.1em;
+    align-self: center;
+}
+
+.footer > span {
+    color: #1A5FFF;
+    cursor: pointer;
 }
