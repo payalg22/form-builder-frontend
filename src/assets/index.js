@@ -9,6 +9,7 @@ import curve from "./landingpage_dome.png";
 import pyramid from "./landingpage_triangle.png";
 import visit from "./openlink.png";
 import logo from "./logo.png";
+import remove from "./delete.png";
 
 export {
   back,
@@ -22,4 +23,5 @@ export {
   pyramid,
   visit,
   logo,
+  remove,
 };

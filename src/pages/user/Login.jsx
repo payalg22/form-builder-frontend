@@ -24,17 +24,17 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(user);
     const validation = validateLogin(user);
     if (validation === true) {
       const response = await login(user);
       if (response.status === 200) {
         const token = response.data.token;
+        //console.log(token);
+        localStorage.setItem("token", token);
         console.log(token);
-        //   localStorage.setItem("token", token);
-        //   const userData = await getUser();
-        //   setUserInfo(userData.data);
-        navigate("/home");
+        setTimeout(() => {
+          navigate("/dashboard");
+        });
       } else {
         setError({ email: true, password: response.data.message });
       }

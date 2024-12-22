@@ -13,15 +13,20 @@
 }
 
 .dark {
+  --primary-color: rgba(255, 255, 255, 0.92);
+  --primary-background: rgba(31, 31, 35, 1);
   --border-color: rgba(255, 255, 255, 0.16);
   --secondary-color: rgba(26, 95, 255, 1);
-  background-color: black;
-  color: white;
+  background: linear-gradient(0deg, #121212, #121212),
+    linear-gradient(0deg, #18181b, #18181b);
+  color: rgba(255, 255, 255, 0.92);
 }
 
 .light {
+  --primary-color: rgba(0, 0, 0, 0.92);
+  --primary-background: rgba(255, 255, 255, 1);
   --border-color: rgba(214, 214, 214, 1);
   --secondary-color: rgba(177, 177, 177, 1);
   background-color: white;
-  color: black;
+  color: rgba(0, 0, 0, 0.92);
 }

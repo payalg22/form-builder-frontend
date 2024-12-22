@@ -34,7 +34,7 @@ export default function Register() {
     if (validation === true) {
       const res = await register(user);
       if (res.status === 201) {
-        navigate("/home");
+        navigate("/dashboard");
       } else {
         if(res.status === 400) {
             setError({ ...error, email: res.data.message });

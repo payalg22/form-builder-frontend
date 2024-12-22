@@ -159,6 +159,10 @@ div.footer {
   display: none;
 }
 
+.option:last-child .link {
+    display: none;
+}
+
 .link {
   margin-left: 5px;
   vertical-align: middle;
