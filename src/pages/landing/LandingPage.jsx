@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./LandingPage.module.css";
 import { hero, curve, pyramid, visit, logo } from "../../assets/index";
+import { isLoggedUser } from "../../utils/session";
 
 const LogoComp = () => {
   return (
@@ -14,6 +15,13 @@ const LogoComp = () => {
 
 export default function LandingPage() {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isLoggedUser()) {
+      navigate("/dashboard");
+    }
+  }, []);
+
   const data = [
     {
       heading: "Product",

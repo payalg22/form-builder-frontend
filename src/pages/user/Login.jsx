@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import User from "../../components/user/User";
 import { validateLogin } from "../../utils/validate";
+import { isLoggedUser } from "../../utils/session";
 import { login } from "../../services/auth";
 import { useNavigate } from "react-router-dom";
 
@@ -22,6 +23,12 @@ export default function Login() {
     });
   }, [user]);
 
+  useEffect(() => {
+    if (isLoggedUser()) {
+      navigate("/dashboard");
+    }
+  }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const validation = validateLogin(user);
@@ -29,12 +36,10 @@ export default function Login() {
       const response = await login(user);
       if (response.status === 200) {
         const token = response.data.token;
-        //console.log(token);
         localStorage.setItem("token", token);
-        console.log(token);
         setTimeout(() => {
           navigate("/dashboard");
-        });
+        }, 1000);
       } else {
         setError({ email: true, password: response.data.message });
       }

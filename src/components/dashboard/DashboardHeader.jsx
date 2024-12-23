@@ -3,18 +3,21 @@ import styles from "./DashboardHeader.module.css";
 import Toggle from "../common/Toggle";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleUp, faAngleDown } from "@fortawesome/free-solid-svg-icons";
+import { logout } from "../../utils/session";
+import { useNavigate } from "react-router-dom";
 
 export default function DashboardHeader({ workspaces, handleSelect, curr }) {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
+  const navigate = useNavigate();
 
   const handleMenu = () => {
     setIsOpenMenu(!isOpenMenu);
   };
 
   const handleSelectUser = (user) => {
-    if(user._id !== curr._id) {
-        handleSelect(user);
-        setIsOpenMenu(false);
+    if (user._id !== curr._id) {
+      handleSelect(user);
+      setIsOpenMenu(false);
     }
   };
 
@@ -45,8 +48,10 @@ export default function DashboardHeader({ workspaces, handleSelect, curr }) {
                 </div>
               );
             })}
-            <p>Settings</p>
-            <p className={styles.logout}>Logout</p>
+            <p onClick={() => navigate("/settings")}>Settings</p>
+            <p className={styles.logout} onClick={logout}>
+              Logout
+            </p>
           </div>
         )}
       </div>

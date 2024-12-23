@@ -10,6 +10,12 @@ import pyramid from "./landingpage_triangle.png";
 import visit from "./openlink.png";
 import logo from "./logo.png";
 import remove from "./delete.png";
+import view from "./view.png";
+import hide from "./hide.png";
+import userIcon from "./user.png";
+import logoutIcon from "./logoutIcon.png";
+import lock from "./lock.png";
+import email from "./email.png";
 
 export {
   back,
@@ -24,4 +30,10 @@ export {
   visit,
   logo,
   remove,
+  view,
+  hide,
+  logoutIcon,
+  userIcon,
+  lock,
+  email,
 };

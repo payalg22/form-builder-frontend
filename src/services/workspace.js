@@ -2,9 +2,9 @@ import axios from "axios";
 import { handleApiRes } from "./help";
 
 const API_URL = import.meta.env.VITE_API_URL;
-const token = localStorage.getItem("token");
 
 export async function getWorkspace() {
+  const token = localStorage.getItem("token");
   try {
     const response = await axios.get(`${API_URL}/workspace`, {
       headers: {
@@ -18,6 +18,7 @@ export async function getWorkspace() {
 }
 
 export async function getWorkspaceData(id) {
+  const token = localStorage.getItem("token");
   try {
     const response = await axios.get(`${API_URL}/workspace/data/${id}`, {
       headers: {

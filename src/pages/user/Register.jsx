@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import User from "../../components/user/User";
 import { register } from "../../services/auth";
 import { validateSignUp } from "../../utils/validate";
+import { isLoggedUser } from "../../utils/session";
 
 export default function Register() {
   const [user, setUser] = useState({
@@ -28,6 +29,12 @@ export default function Register() {
     });
   }, [user]);
 
+  useEffect(() => {
+    if (isLoggedUser()) {
+      navigate("/dashboard");
+    }
+  }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const validation = validateSignUp(user);
@@ -36,11 +43,10 @@ export default function Register() {
       if (res.status === 201) {
         navigate("/dashboard");
       } else {
-        if(res.status === 400) {
-            setError({ ...error, email: res.data.message });
+        if (res.status === 400) {
+          setError({ ...error, email: res.data.message });
         }
-        //For status == 400 , email will show error for others, toast error
-        
+        //TO DO: for others, toast error
       }
     } else {
       setError(validation);

@@ -1,6 +1,6 @@
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Dashboard, Landing, Login, Register } from "./pages/index";
+import { Dashboard, Landing, Login, Register, Settings } from "./pages/index";
 import { useEffect, useState } from "react";
 import { useApp } from "./context/AppContext";
 
@@ -21,6 +21,7 @@ function App() {
             <Route path="/login/:referenceid" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/settings" element={<Settings />} />
           </Routes>
         </BrowserRouter>
       </div>

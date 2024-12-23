@@ -1,4 +1,5 @@
 import axios from "axios";
+import { handleApiRes } from "./help";
 
 const API_URL = import.meta.env.VITE_API_URL;
 const token = localStorage.getItem("token");
@@ -12,9 +13,9 @@ export async function getUser() {
       },
     });
     //console.log(response.data);
-    return response;
+    return handleApiRes(response);
   } catch (error) {
-    return error.response;
+    return handleApiRes(error.response);
   }
 }
 
@@ -22,7 +23,7 @@ export async function getUser() {
 export async function updateUser(details) {
   const data = JSON.stringify(details);
   try {
-    const response = await axios.put(`${API_URL}/user/edit`, data, {
+    const response = await axios.put(`${API_URL}/user/update`, data, {
       headers: {
         "Content-type": "application/json",
         Authorization: token,
