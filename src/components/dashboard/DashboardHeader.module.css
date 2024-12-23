@@ -1,8 +1,5 @@
 .container {
-    display: flex;
-    align-items: center;
     justify-content: flex-end;
-    gap: 10%;
     border-bottom: 1px solid var(--border-color);
     padding: 15px 5%;
     width: 100%;
@@ -10,11 +7,20 @@
     font-family: 'Open sans', sans-serif;
 }
 
+.main, .container {
+    display: flex;
+    align-items: center;
+}
+
+.main {
+    justify-content: space-between;
+    width: 65%;
+}
+
 /* Workspace bar and dropdown */
 .workspace {
     text-align: left;
     font-weight: 500;
-    margin-right: 5%;
     position: relative;
     box-sizing: border-box;
     padding: 10px;

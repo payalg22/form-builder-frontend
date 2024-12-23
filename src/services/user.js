@@ -2,9 +2,9 @@ import axios from "axios";
 import { handleApiRes } from "./help";
 
 const API_URL = import.meta.env.VITE_API_URL;
-const token = localStorage.getItem("token");
 
 export async function getUser() {
+  const token = localStorage.getItem("token");
   try {
     const response = await axios.get(`${API_URL}/user`, {
       headers: {
@@ -12,15 +12,14 @@ export async function getUser() {
         Authorization: token,
       },
     });
-    //console.log(response.data);
     return handleApiRes(response);
   } catch (error) {
     return handleApiRes(error.response);
   }
 }
 
-//check compatibility of json / x-w-form with backend
 export async function updateUser(details) {
+  const token = localStorage.getItem("token");
   const data = JSON.stringify(details);
   try {
     const response = await axios.put(`${API_URL}/user/update`, data, {

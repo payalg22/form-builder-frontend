@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Dashboard, Landing, Login, Register, Settings } from "./pages/index";
 import { useEffect, useState } from "react";
 import { useApp } from "./context/AppContext";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   const [theme, setTheme] = useState("dark");
@@ -14,6 +15,7 @@ function App() {
 
   return (
     <div className={`main ${theme}`}>
+      <ToastContainer theme={theme} />
       <div className="content">
         <BrowserRouter>
           <Routes>

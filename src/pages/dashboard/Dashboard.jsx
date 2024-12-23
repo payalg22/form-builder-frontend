@@ -3,19 +3,23 @@ import styles from "./Dashboard.module.css";
 import DashboardHeader from "../../components/dashboard/DashboardHeader";
 import { getWorkspace, getWorkspaceData } from "../../services/workspace";
 import Loading from "../../components/common/Loading";
-import { Folder } from "../../assets/Folder";
 import { useApp } from "../../context/AppContext";
-import { remove } from "../../assets/index";
+import FolderStack from "../../components/dashboard/FolderStack";
+import FormStack from "../../components/dashboard/FormStack";
 
 export default function Dashboard() {
   const [workspaces, setWorkspaces] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
   const [currDashboard, setCurrDashboard] = useState(null);
   const [userData, setUserData] = useState(null);
   const [currFolder, setCurrFolder] = useState();
   const [forms, setForms] = useState([]);
-  const { isDark } = useApp();
+  const { isDark, user, isLoading, setIsLoading } = useApp();
+  const [isAuthorised, setIsAuthorised] = useState({
+    owner: false,
+    editor: false,
+  });
 
+  //Get all the workspaces, user has access to
   useEffect(() => {
     getWorkspace()
       .then((data) => {
@@ -39,6 +43,18 @@ export default function Dashboard() {
     setCurrFolder(id);
   };
 
+  //Check what privileges does the user have
+  function checkAuthority(data) {
+    console.log(user._id, data);
+    if (user._id === data.owner) {
+      setIsAuthorised({ owner: true, editor: true });
+    } else {
+      const isEditor = data.sharedTo[0].isEditor;
+      setIsAuthorised({ owner: false, editor: isEditor });
+    }
+  }
+
+  //To get all the folders associated with user/ selected workspace
   function getUserData() {
     if (currDashboard) {
       getWorkspaceData(currDashboard._id).then((data) => {
@@ -48,6 +64,7 @@ export default function Dashboard() {
             return folder.name === data.owner;
           });
           setCurrFolder(defaultFolder._id);
+          checkAuthority(data);
         }
       });
     }
@@ -63,40 +80,17 @@ export default function Dashboard() {
             workspaces={workspaces}
             handleSelect={selectWorkspace}
             curr={currDashboard}
+            isOwner={isAuthorised.owner}
           />
           <div className={styles.dashboard}>
-            <div>
-              <div className={styles.folder}>
-                <Folder
-                  color={
-                    isDark ? "rgba(255, 255, 255, 0.92)" : "rgba(0, 0, 0, 0.92)"
-                  }
-                />
-                Create a folder
-              </div>
-              {userData &&
-                userData.folders?.map((folder) => {
-                  return (
-                    userData.owner !== folder.name && (
-                      <div
-                        key={folder._id}
-                        className={`${styles.folder} ` +
-                          (currFolder === folder._id && styles.selection)
-                        }
-                      >
-                        <p
-                          onClick={() => {
-                            handleFolder(folder._id);
-                          }}
-                        >
-                          {folder.name}
-                        </p>
-                        <img src={remove} />
-                      </div>
-                    )
-                  );
-                })}
-            </div>
+            <FolderStack
+              userData={userData}
+              handleFolder={handleFolder}
+              currFolder={currFolder}
+              isDark={isDark}
+              isEditor={isAuthorised.editor}
+            />
+            <FormStack />
           </div>
         </div>
       )}

@@ -1,0 +1,33 @@
+.folder {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 5px;
+    padding: 10px;
+    border-radius: 6px;
+    background-color: var(--border-color);
+    min-width: 200px;
+}
+
+.folder:first-child {
+    width: fit-content;
+    min-width: unset;
+    padding: 10px 15px;
+    cursor: pointer;
+    position: relative;
+}
+
+.folder > * {
+    cursor: pointer;
+}
+
+.folder > p {
+    margin: 0;
+    flex: 1;
+}
+
+.selection {
+    background-color: #ffffff;
+    color: rgba(24, 24, 27, 1);
+    border: 1px solid rgba(31, 31, 35, 1);
+}

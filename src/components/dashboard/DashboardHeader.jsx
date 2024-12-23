@@ -6,7 +6,12 @@ import { faAngleUp, faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import { logout } from "../../utils/session";
 import { useNavigate } from "react-router-dom";
 
-export default function DashboardHeader({ workspaces, handleSelect, curr }) {
+export default function DashboardHeader({
+  workspaces,
+  handleSelect,
+  curr,
+  isOwner,
+}) {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
   const navigate = useNavigate();
 
@@ -15,6 +20,7 @@ export default function DashboardHeader({ workspaces, handleSelect, curr }) {
   };
 
   const handleSelectUser = (user) => {
+    console.log(user);
     if (user._id !== curr._id) {
       handleSelect(user);
       setIsOpenMenu(false);
@@ -23,40 +29,42 @@ export default function DashboardHeader({ workspaces, handleSelect, curr }) {
 
   return (
     <div className={styles.container}>
-      <div className={styles.workspace}>
-        <div>
-          {`${curr.owner}'s workspace`}
-          <FontAwesomeIcon
-            icon={faAngleDown}
-            onClick={handleMenu}
-            className={styles.icon}
-          />
-        </div>
-        {isOpenMenu && (
-          <div className={styles.menu}>
-            {workspaces.map((user, idx) => {
-              return (
-                <div key={user._id} onClick={() => handleSelectUser(user)}>
-                  {`${user.owner}'s workspace`}
-                  {idx === 0 && (
-                    <FontAwesomeIcon
-                      icon={faAngleUp}
-                      onClick={handleMenu}
-                      className={styles.icon}
-                    />
-                  )}
-                </div>
-              );
-            })}
-            <p onClick={() => navigate("/settings")}>Settings</p>
-            <p className={styles.logout} onClick={logout}>
-              Logout
-            </p>
+      <div className={styles.main}>
+        <div className={styles.workspace}>
+          <div>
+            {`${curr.owner}'s workspace`}
+            <FontAwesomeIcon
+              icon={faAngleDown}
+              onClick={handleMenu}
+              className={styles.icon}
+            />
           </div>
-        )}
+          {isOpenMenu && (
+            <div className={styles.menu}>
+              {workspaces.map((user, idx) => {
+                return (
+                  <div key={user._id} onClick={() => handleSelectUser(user)}>
+                    {`${user.owner}'s workspace`}
+                    {idx === 0 && (
+                      <FontAwesomeIcon
+                        icon={faAngleUp}
+                        onClick={handleMenu}
+                        className={styles.icon}
+                      />
+                    )}
+                  </div>
+                );
+              })}
+              <p onClick={() => navigate("/settings")}>Settings</p>
+              <p className={styles.logout} onClick={logout}>
+                Logout
+              </p>
+            </div>
+          )}
+        </div>
+        <Toggle />
+        {isOwner && <button className={styles.share}>Share</button>}
       </div>
-      <Toggle />
-      <button className={styles.share}>Share</button>
     </div>
   );
 }

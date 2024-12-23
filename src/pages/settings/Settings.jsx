@@ -11,6 +11,8 @@ import {
 import { getUser, updateUser } from "../../services/user";
 import { validateUpdate } from "../../utils/validate";
 import { logout } from "../../utils/session";
+import notify from "../../utils/notify";
+import { use } from "react";
 
 const Field = ({ field }) => {
   const [isVisible, setIsVisible] = useState(false);
@@ -63,19 +65,7 @@ export default function Settings() {
   });
   const [user, setUser] = useState();
 
-  useEffect(() => {
-    getUser().then((data) => {
-      if (data) {
-        setFormData({
-          ...formData,
-          name: data.name,
-          email: data.email,
-          _id: data._id,
-        });
-        setUser(data);
-      }
-    });
-  }, []);
+  useEffect(getUserDetails, []);
 
   useEffect(() => {
     setError({
@@ -129,6 +119,22 @@ export default function Settings() {
     },
   ];
 
+  function getUserDetails() {
+    getUser().then((data) => {
+      if (data) {
+        setFormData({
+          oldPassword: "",
+          newPassword: "",
+          name: data.name,
+          email: data.email,
+          _id: data._id,
+        });
+        setUser(data);
+      }
+      console.log(data);
+    });
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (
@@ -140,19 +146,25 @@ export default function Settings() {
       const isValid = validateUpdate(formData);
       if (isValid !== true) {
         setError(isValid);
+        return;
       }
       const res = await updateUser(formData);
-      if(res.status === 201) {
-        //TO DO : toast 
-        console.log("Updated succesfully");
+      if (res.status === 201) {
+        getUserDetails();
+        notify("Changes Saved", "success");
+      } else if (res.status === 401) {
+        setError({ ...error, oldPassword: res.data.message });
       } else if (res.status === 400) {
-        setError({...error, oldPassword: res.data.message});
+        setError({ ...error, newPassword: res.data.message });
       } else {
         //TO DO : toast something went wrong
-        console.log("Something went wrong. Please try later");
+        notify("Something went wrong", "error");
       }
-
+      return;
     }
+
+    notify("No changes to save", "info");
+    return;
   };
 
   return (
