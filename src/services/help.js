@@ -3,11 +3,10 @@ export const handleApiRes = (res) => {
         return res.data;
     } else if (res.status === 401) {
         localStorage.removeItem("token");
-        window.location.href = "/login/new"
-        alert("Please login to continue");
+        window.location.href = "/login"
+        alert("Please login and try again");
     } else {
-        alert("Something went wrong.");
+        return res;
     }
-
     return null;
 }

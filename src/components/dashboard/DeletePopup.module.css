@@ -1,0 +1,60 @@
+
+.container {
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 25px 20px;
+  border-radius: 24px;
+  border: 1px solid rgba(71, 71, 74, 1);
+  font-family: "Open Sans", sans-serif;
+  gap: 25px;
+  margin: 20px 0;
+}
+
+.dark {
+  background-color: rgba(24, 24, 27, 1);
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.light {
+  color: rgba(0, 0, 0, 0.92);
+  background-color: white;
+}
+
+.container > * {
+  width: 90%;
+  box-sizing: border-box;
+}
+
+.container > p {
+  font-weight: 600;
+  font-size: 1.5em;
+  margin: 0;
+  text-align: center;
+}
+
+.container button {
+  background-color: transparent;
+  padding: 10px 15px;
+  border: none;
+  width: 50%;
+  font-weight: 600;
+  font-size: 1.125em;
+  font-family: "Open Sans", sans-serif;
+  color: rgba(255, 255, 255, 0.92);
+  cursor: pointer;
+}
+
+.container button:focus {
+    outline: none;
+}
+
+.light button {
+  color: rgba(177, 177, 177, 1);
+}
+
+button.done {
+  color: rgba(75, 131, 255, 1);
+  border-right: 1px solid rgba(71, 71, 74, 1);
+}

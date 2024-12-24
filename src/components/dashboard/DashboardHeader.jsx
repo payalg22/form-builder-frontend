@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleUp, faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import { logout } from "../../utils/session";
 import { useNavigate } from "react-router-dom";
+import ShareModal from "./ShareModal";
 
 export default function DashboardHeader({
   workspaces,
@@ -32,7 +33,7 @@ export default function DashboardHeader({
       <div className={styles.main}>
         <div className={styles.workspace}>
           <div>
-            {`${curr.owner}'s workspace`}
+            {`${curr?.owner.name}'s workspace`}
             <FontAwesomeIcon
               icon={faAngleDown}
               onClick={handleMenu}
@@ -44,7 +45,7 @@ export default function DashboardHeader({
               {workspaces.map((user, idx) => {
                 return (
                   <div key={user._id} onClick={() => handleSelectUser(user)}>
-                    {`${user.owner}'s workspace`}
+                    {`${user.owner.name}'s workspace`}
                     {idx === 0 && (
                       <FontAwesomeIcon
                         icon={faAngleUp}
@@ -63,7 +64,12 @@ export default function DashboardHeader({
           )}
         </div>
         <Toggle />
-        {isOwner && <button className={styles.share}>Share</button>}
+        {isOwner && (
+          <ShareModal
+            ele={<button className={styles.share}>Share</button>}
+            id={curr._id}
+          />
+        )}
       </div>
     </div>
   );

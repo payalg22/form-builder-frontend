@@ -3,34 +3,34 @@
   margin-bottom: 10px;
 }
 
-.label, label.error {
+.label,
+label.error {
   font-weight: 500;
 }
 
-.input, input.error {
+.input,
+input.error {
   width: 100%;
   box-sizing: border-box;
   padding: 10px;
-  background-color: #C4C4C400;
-  border: 1px solid #FFFFFF80;
+  background-color: #c4c4c400;
+  border: 1px solid #ffffff80;
   border-radius: 12px;
   box-shadow: 0px 4px 10px 0px #00000040;
   margin-top: 5px;
   color: white;
 }
 
-
 input.error {
-    border: 1px solid #FF272780
+  border: 1px solid #ff272780;
 }
 
 label.error {
-    color: #FF4141;
+  color: #ff4141;
 }
 
 p.error {
-    color: #522224;
-    font-size: 0.9em;
-    margin: 5px 0 0 10px;
+  color: #522224;
+  font-size: 0.9em;
+  margin: 5px 0 0 10px;
 }
-

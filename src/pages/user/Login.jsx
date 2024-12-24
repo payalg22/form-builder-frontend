@@ -3,9 +3,11 @@ import User from "../../components/user/User";
 import { validateLogin } from "../../utils/validate";
 import { isLoggedUser } from "../../utils/session";
 import { login } from "../../services/auth";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { useApp } from "../../context/AppContext";
 
 export default function Login() {
+  const { role, id } = useParams();
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -14,7 +16,9 @@ export default function Login() {
     email: false,
     password: false,
   });
+  const { setToken } = useApp();
   const navigate = useNavigate();
+  const path = id && role ? `/register/${id}/${role}` : "/register";
 
   useEffect(() => {
     setError({
@@ -37,8 +41,13 @@ export default function Login() {
       if (response.status === 200) {
         const token = response.data.token;
         localStorage.setItem("token", token);
+        setToken(token);
         setTimeout(() => {
-          navigate("/dashboard");
+          if (role && id) {
+            navigate(`/share/${id}/${role}`);
+          } else {
+            navigate("/dashboard");
+          }
         }, 1000);
       } else {
         setError({ email: true, password: response.data.message });
@@ -70,5 +79,7 @@ export default function Login() {
       error: error.password,
     },
   ];
-  return <User isLogin={true} fields={fields} action={handleSubmit} />;
+  return (
+    <User isLogin={true} fields={fields} action={handleSubmit} path={path} />
+  );
 }

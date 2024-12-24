@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import User from "../../components/user/User";
 import { register } from "../../services/auth";
 import { validateSignUp } from "../../utils/validate";
 import { isLoggedUser } from "../../utils/session";
+import notify from "../../utils/notify";
+import { useApp } from "../../context/AppContext";
 
 export default function Register() {
+  const { id, role } = useParams();
   const [user, setUser] = useState({
     name: "",
     email: "",
@@ -18,7 +21,9 @@ export default function Register() {
     password: false,
     confirmPassword: false,
   });
+  const { setToken } = useApp();
   const navigate = useNavigate();
+  const path = id && role ? `/login/${id}/${role}` : "/login";
 
   useEffect(() => {
     setError({
@@ -41,12 +46,22 @@ export default function Register() {
     if (validation === true) {
       const res = await register(user);
       if (res.status === 201) {
-        navigate("/dashboard");
+        const token = res.data.token;
+        localStorage.setItem("token", token);
+        setToken(token);
+        setTimeout(() => {
+          if (role && id) {
+            navigate(`/share/${id}/${role}`);
+          } else {
+            navigate("/dashboard");
+          }
+        }, 1000);
       } else {
         if (res.status === 400) {
           setError({ ...error, email: res.data.message });
+        } else {
+          notify("Something went wrong", "error");
         }
-        //TO DO: for others, toast error
       }
     } else {
       setError(validation);
@@ -96,5 +111,7 @@ export default function Register() {
     },
   ];
 
-  return <User isLogin={false} fields={fields} action={handleSubmit} />;
+  return (
+    <User isLogin={false} fields={fields} action={handleSubmit} path={path} />
+  );
 }

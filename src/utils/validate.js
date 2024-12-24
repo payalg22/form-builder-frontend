@@ -9,7 +9,7 @@ const validatePassword = (val) => {
   return false;
 };
 
-const validateEmail = (val) => {
+export const validateEmail = (val) => {
   if (val == "") {
     return "Please enter email";
   }

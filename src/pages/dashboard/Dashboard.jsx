@@ -10,10 +10,10 @@ import FormStack from "../../components/dashboard/FormStack";
 export default function Dashboard() {
   const [workspaces, setWorkspaces] = useState("");
   const [currDashboard, setCurrDashboard] = useState(null);
-  const [userData, setUserData] = useState(null);
+  const [collection, setCollection] = useState(null);
   const [currFolder, setCurrFolder] = useState();
   const [forms, setForms] = useState([]);
-  const { isDark, user, isLoading, setIsLoading } = useApp();
+  const { user, isLoading, setIsLoading } = useApp();
   const [isAuthorised, setIsAuthorised] = useState({
     owner: false,
     editor: false,
@@ -21,19 +21,19 @@ export default function Dashboard() {
 
   //Get all the workspaces, user has access to
   useEffect(() => {
-    getWorkspace()
-      .then((data) => {
-        if (data) {
-          setWorkspaces(data);
-          setCurrDashboard(data[0]);
+    getWorkspace().then((data) => {
+      if (data) {
+        setWorkspaces(data);
+        if (user) {
+          const currDash = data.find((wkspc) => wkspc.owner._id === user._id);
+          setCurrDashboard(currDash);
+          setIsLoading(false);
         }
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
-  }, []);
+      }
+    });
+  }, [user]);
 
-  useEffect(getUserData, [currDashboard]);
+  useEffect(getCollection, [currDashboard]);
 
   const selectWorkspace = (user) => {
     setCurrDashboard(user);
@@ -45,7 +45,6 @@ export default function Dashboard() {
 
   //Check what privileges does the user have
   function checkAuthority(data) {
-    console.log(user._id, data);
     if (user._id === data.owner) {
       setIsAuthorised({ owner: true, editor: true });
     } else {
@@ -55,11 +54,11 @@ export default function Dashboard() {
   }
 
   //To get all the folders associated with user/ selected workspace
-  function getUserData() {
+  function getCollection() {
     if (currDashboard) {
       getWorkspaceData(currDashboard._id).then((data) => {
         if (data) {
-          setUserData(data);
+          setCollection(data);
           const defaultFolder = data.folders.find((folder) => {
             return folder.name === data.owner;
           });
@@ -84,13 +83,13 @@ export default function Dashboard() {
           />
           <div className={styles.dashboard}>
             <FolderStack
-              userData={userData}
+              collection={collection}
               handleFolder={handleFolder}
               currFolder={currFolder}
-              isDark={isDark}
               isEditor={isAuthorised.editor}
+              reload={getCollection}
             />
-            <FormStack />
+            <FormStack isEditor={isAuthorised.editor} />
           </div>
         </div>
       )}

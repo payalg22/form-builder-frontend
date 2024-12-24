@@ -17,6 +17,7 @@ import logoutIcon from "./logoutIcon.png";
 import lock from "./lock.png";
 import email from "./email.png";
 import add from "./add.png";
+import closeIcon from "./close.png";
 
 export {
   back,
@@ -37,5 +38,6 @@ export {
   userIcon,
   lock,
   email,
-  add
+  add,
+  closeIcon,
 };

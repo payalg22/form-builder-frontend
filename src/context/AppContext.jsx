@@ -7,13 +7,13 @@ export const AppProvider = ({ children }) => {
   const [isDark, setIsDark] = useState(true);
   const [user, setUser] = useState();
   const [isLoading, setIsLoading] = useState(true);
+  const [token, setToken]  = useState(localStorage.getItem("token") || null);
 
   const toggleTheme = () => {
     setIsDark((prev) => !prev);
   };
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
     if (token) {
       getUser().then((data) => {
         if (data) {
@@ -24,10 +24,10 @@ export const AppProvider = ({ children }) => {
         setIsLoading(false);
       });
     }
-  }, []);
+  }, [token]);
 
   return (
-    <AppContext.Provider value={{ isDark, toggleTheme, user, isLoading, setIsLoading }}>
+    <AppContext.Provider value={{ isDark, toggleTheme, user, isLoading, setIsLoading, setToken }}>
       {children}
     </AppContext.Provider>
   );

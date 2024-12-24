@@ -1,17 +1,25 @@
 .container {
-    width: 400px;
+    width: 700px;
+    height: 350px;
     display: flex;
     flex-direction: column;
     padding: 20px;
     border-radius: 24px;
     border: 1px solid rgba(71, 71, 74, 1);
     font-family: 'Open Sans', sans-serif;
-    gap: 15px;
-    height: 200px;
+    gap: 20px;
     align-items: center;
     justify-content: center;
     margin: 10px;
     position: relative;
+}
+
+.close {
+    position: absolute;
+    right: 0;
+    top: 0;
+    cursor: pointer;
+    padding: 10px;
 }
 
 .dark {
@@ -29,7 +37,7 @@
     box-sizing: border-box;
 }
 
-.container > p {
+.container  label {
     font-weight: 600;
     font-size: 1.5em;
     margin: 0;
@@ -43,19 +51,31 @@
     padding: 15px 10px;
 }
 
-.dark .input {
+.dark .input, .dark .edit {
     background-color: rgba(31, 31, 35, 1);
-    color: rgba(161, 161, 161, 0.6);
+    color: rgba(255, 255, 255, 1);
     border: none;
 }
 
-.light .input {
+.input::placeholder {
+    color: rgba(161, 161, 161, 0.6);
+}
+
+select.edit {
+    float: right;
+    padding: 10px 15px;
+    box-shadow: 0px 1px 3.5px 0px rgba(255, 255, 255, 0.25);
+    color: white;
+    font-weight: 600;
+}
+
+.light .input, .light .edit {
     background-color: transparent;
     border: 1px solid rgba(31, 31, 35, 1);
     color: rgba(0, 0, 0, 0.92);
 }
 
-.input:focus {
+.input:focus, .edit:focus {
     outline: none;
 }
 
@@ -69,23 +89,19 @@ p.error {
     margin: 0;
 }
 
-.container  button {
-    background-color: transparent;
-    padding: 10px 15px;
+.container button {
+    height: 40px;
+    background-color: #1A5FFF;
+    color: #FFFFFF;
+    box-shadow: 0px 4px 10px 0px #E9444B40;
+    border-radius: 12px;
+    font-weight: 500;
     border: none;
-    width: 50%;
-    font-weight: 600;
-    font-size: 1.125em;
-    font-family: 'Open Sans', sans-serif;
-    color: rgba(255, 255, 255, 0.92);
     cursor: pointer;
-}
-
-.light button {
-    color: rgba(177, 177, 177, 1);
-}
-
-button.done {
-    color: rgba(75, 131, 255, 1);
-    border-right: 1px solid rgba(71, 71, 74, 1)
+    box-sizing: border-box;
+    text-align: center;
+    font-family: 'Open Sans', sans-serif;
+    padding: 10px;
+    letter-spacing: 0.03em;
+    font-size: 1em;
 }

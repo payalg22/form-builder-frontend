@@ -1,16 +1,23 @@
 import React from "react";
 import styles from "./FormStack.module.css";
-import { add, remove } from "../../assets/index";
+import { add } from "../../assets/index";
+import DeletePopup from "./DeletePopup";
+import NewItemModal from "./NewItemModal";
 
-export default function FormStack({isEditor}) {
+export default function FormStack({ isEditor }) {
+
   return (
     <div className={styles.container}>
-     {isEditor && <div className={styles.newform}>
-        <img src={add} />
-        <p>Create a typebot</p>
-      </div>}
+      {isEditor && (
+        <NewItemModal ele={<div className={styles.newform}>
+          <img src={add} />
+          <p>Create a typebot</p>
+        </div>} item={"Form"} />
+      )}
       <div className={styles.form}>
-        <img src={remove} className={styles.delete} />
+        <div className={styles.delete}>
+          <DeletePopup item={"form"} />
+        </div>
         <p>Form</p>
       </div>
     </div>

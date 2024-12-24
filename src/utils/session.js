@@ -1,6 +1,6 @@
 function logout() {
   localStorage.removeItem("token");
-  window.location.href = "/login/new";
+  window.location.href = "/login";
 }
 
 function isLoggedUser() {
