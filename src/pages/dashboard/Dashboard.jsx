@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Dashboard.module.css";
 import DashboardHeader from "../../components/dashboard/DashboardHeader";
-import { getWorkspace, getWorkspaceData } from "../../services/workspace";
+import {
+  getWorkspace,
+  getWorkspaceData,
+} from "../../services/workspace";
 import Loading from "../../components/common/Loading";
 import { useApp } from "../../context/AppContext";
 import FolderStack from "../../components/dashboard/FolderStack";
@@ -12,7 +15,6 @@ export default function Dashboard() {
   const [currDashboard, setCurrDashboard] = useState(null);
   const [collection, setCollection] = useState(null);
   const [currFolder, setCurrFolder] = useState();
-  const [forms, setForms] = useState([]);
   const { user, isLoading, setIsLoading } = useApp();
   const [isAuthorised, setIsAuthorised] = useState({
     owner: false,
@@ -39,7 +41,7 @@ export default function Dashboard() {
     setCurrDashboard(user);
   };
 
-  const handleFolder = (id) => {
+  const handleFolder = async (id) => {
     setCurrFolder(id);
   };
 
@@ -89,7 +91,11 @@ export default function Dashboard() {
               isEditor={isAuthorised.editor}
               reload={getCollection}
             />
-            <FormStack isEditor={isAuthorised.editor} />
+            <FormStack
+              isAuthorised={isAuthorised}
+              folder={currFolder}
+              owner={currDashboard?.owner._id}
+            />
           </div>
         </div>
       )}

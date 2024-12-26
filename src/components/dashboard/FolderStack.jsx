@@ -14,15 +14,10 @@ export default function FolderStack({
   isEditor,
   reload,
 }) {
-  const [isPopup, setIsPopup] = useState(false);
   const { isDark } = useApp();
   const iconColor = isDark
     ? "rgba(255, 255, 255, 0.92)"
     : "rgba(0, 0, 0, 0.92)";
-
-  const handlePopup = () => {
-    setIsPopup(!isPopup);
-  };
 
   const handleNewFolder = async (name) => {
     const newFolder = {
@@ -57,7 +52,7 @@ export default function FolderStack({
       {isEditor && (
         <NewItemModal
           ele={
-            <div className={styles.folder} onClick={handlePopup}>
+            <div className={styles.folder}>
               <Folder color={iconColor} />
               Create a folder
             </div>
@@ -66,11 +61,6 @@ export default function FolderStack({
           handleNew={handleNewFolder}
         />
       )}
-      {/* {isPopup && (
-        <div className={styles.popup}>
-          <NewItemModal item={"Folder"} handlePopup={handlePopup} handleNew={handleNewFolder} err={error} />
-        </div>
-      )} */}
       {collection?.folders?.map((folder) => {
         const isSelected = currFolder === folder._id;
         const isDefault = collection.owner === folder.name;

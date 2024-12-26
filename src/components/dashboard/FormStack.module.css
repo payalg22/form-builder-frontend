@@ -1,32 +1,47 @@
-.newform, .form {
-    height: 250px;
-    width: 200px;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    position: relative;
-    border-radius: 6px;
-    font-size: 1.125em;
-    font-family: 'Open Sans';
-    cursor: pointer;
+.newform,
+.form {
+  height: 250px;
+  width: 200px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  position: relative;
+  border-radius: 6px;
+  font-size: 1.125em;
+  font-family: "Open Sans";
 }
 
 .newform {
-    background-color: rgba(26, 95, 255, 1);
-    color: white;
-    border: 1px solid rgba(26, 95, 255, 1);
+  background-color: rgba(26, 95, 255, 1);
+  color: white;
+  border: 1px solid rgba(26, 95, 255, 1);
+  cursor: pointer;
 }
 
 .form {
-    background-color: rgba(255, 255, 255, 0.5);
-    border: 1px solid var(--border-color);
+  background-color: rgba(255, 255, 255, 0.5);
+  border: 1px solid var(--border-color);
+}
+
+.allowed, .blocked {
+    margin: 0;
+    padding: 10px;
+}
+
+.allowed {
+    cursor: pointer;
+}
+
+.blocked {
+    cursor: not-allowed;
 }
 
 .delete {
-    position: absolute;
-    right: -10px;
-    top: -10px;
+  position: absolute;
+  right: -10px;
+  top: -10px;
+  cursor: pointer;
 }

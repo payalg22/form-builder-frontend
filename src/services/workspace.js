@@ -65,17 +65,20 @@ export async function deleteFolder(wrkspc, folder) {
 }
 
 export async function shareWorkspace(id, data) {
-    const token = localStorage.getItem("token");
-    try {
-      const response = await axios.patch(`${API_URL}/workspace/share/${id}`, data, {
+  const token = localStorage.getItem("token");
+  try {
+    const response = await axios.patch(
+      `${API_URL}/workspace/share/${id}`,
+      data,
+      {
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
           Authorization: token,
         },
-      });
-      return response;
-    } catch (error) {
-      return handleApiRes(error.response);
-    }
+      }
+    );
+    return response;
+  } catch (error) {
+    return handleApiRes(error.response);
   }
-  
+}

@@ -6,6 +6,10 @@
     gap: 10px;
 }
 
+.container > p {
+    margin: 10px 0;
+}
+
 .bar {
     width: 50px;
     border-radius: 50px;

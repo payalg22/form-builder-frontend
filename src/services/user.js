@@ -34,3 +34,22 @@ export async function updateUser(details) {
     return error.response;
   }
 }
+
+export async function setTheme(theme) {
+  const token = localStorage.getItem("token");
+  try {
+    const response = await axios.put(
+      `${API_URL}/user/theme/${theme}`,
+      {},
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+
+    return response;
+  } catch (error) {
+    return error.response;
+  }
+}

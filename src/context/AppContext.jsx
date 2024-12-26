@@ -1,13 +1,13 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { getUser } from "../services/user";
+import { getUser, setTheme } from "../services/user";
 
 const AppContext = createContext();
 
 export const AppProvider = ({ children }) => {
-  const [isDark, setIsDark] = useState(true);
+  const [isDark, setIsDark] = useState();
   const [user, setUser] = useState();
   const [isLoading, setIsLoading] = useState(true);
-  const [token, setToken]  = useState(localStorage.getItem("token") || null);
+  const [token, setToken] = useState(localStorage.getItem("token") || null);
 
   const toggleTheme = () => {
     setIsDark((prev) => !prev);
@@ -15,19 +15,36 @@ export const AppProvider = ({ children }) => {
 
   useEffect(() => {
     if (token) {
-      getUser().then((data) => {
+      getUserDetails();
+    }
+  }, [token]);
+
+  function getUserDetails() {
+    getUser()
+      .then((data) => {
         if (data) {
           setUser(data);
           setIsDark(data.isDarkTheme);
         }
-      }).finally(() => {
+      })
+      .finally(() => {
         setIsLoading(false);
       });
+  }
+
+  useEffect(() => {
+    //Update theme in the backend
+    if (user && (isDark !== user.isDarkTheme)) {
+      setTheme(isDark).then(() => {
+        getUserDetails();
+      });
     }
-  }, [token]);
+  }, [isDark]);
 
   return (
-    <AppContext.Provider value={{ isDark, toggleTheme, user, isLoading, setIsLoading, setToken }}>
+    <AppContext.Provider
+      value={{ isDark, toggleTheme, user, isLoading, setIsLoading, setToken }}
+    >
       {children}
     </AppContext.Provider>
   );

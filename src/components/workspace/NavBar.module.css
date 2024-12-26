@@ -1,0 +1,77 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border-color);
+  padding: 15px;
+  width: 100%;
+  height: fit-content;
+  box-sizing: border-box;
+}
+
+.container * {
+  font-family: "Open sans", sans-serif;
+  font-weight: 600;
+}
+
+.input {
+    color: rgba(118, 118, 118, 0.82);
+}
+
+.input, .menu > button {
+  padding: 5px 15px;
+  border-radius: 4px;
+  border: none;
+}
+
+:global(.dark) .input {
+    background-color: rgba(55, 55, 62, 1);
+}
+
+:global(.light) .input {
+    border: 1px solid rgba(214, 214, 214, 1);
+    background-color: transparent;
+}
+
+.view, .menu {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.view {
+    margin-left: 10%;
+}
+
+.view > * {
+  padding: 7.5px 15px;
+  cursor: pointer;
+}
+
+.selected {
+    color: rgba(126, 166, 255, 1);
+    border: 1px solid rgba(126, 166, 255, 1);
+    border-radius: 6px;
+}
+
+.menu > button {
+    cursor: pointer;
+    color: rgba(255, 255, 255, 1);
+    font-size: 1em;
+}
+
+.menu {
+    gap: 25px;
+}
+
+.share {
+    background-color: rgba(26, 95, 255, 1);
+}
+
+.save {
+    background-color: rgba(74, 222, 128, 0.8);
+}
+
+.close {
+    height: 34px;
+    cursor: pointer;
+}
