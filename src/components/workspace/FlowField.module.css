@@ -1,0 +1,62 @@
+.container {
+    display: flex;
+    background-color: var(--secondary-background);
+    padding: 15px;
+    font-size: 1.25em;
+    font-weight: 600;
+    flex-direction: column;
+    gap: 10px;
+    position: relative;
+    border-radius: 8px;
+}
+
+:global(.light) .container, :global(.light) .input  {
+    border: 1px solid rgba(214, 214, 214, 1);
+}
+
+.input {
+    background-color: var(--primary-background);
+    border: none;
+    padding: 10px;
+    color: var(--primary-color);
+    border-radius: 5px;
+}
+
+.container > p {
+    margin: 10px 0;
+}
+
+.delete {
+    height: 24px;
+    width: 24px;
+    padding: 5px;
+    border-radius: 50%;
+    cursor: pointer;
+    background-color: rgba(68, 68, 68, 1);
+    position: absolute;
+    right: -10px;
+    top: -10px;
+}
+
+:global(.light) .delete {
+    border: 1px solid rgba(214, 214, 214, 1);
+    background-color: #ffffff;
+}
+
+.input:has(+ .error) {
+    border: 1px solid rgba(245, 80, 80, 1)
+}
+
+p.error {
+    font-size: 12px;
+    font-weight: 500;
+    font-family: 'Poppins', serif;
+    color: rgba(82, 34, 36, 1);
+    margin: 0;
+}
+
+.hint {
+    font-size: 12px;
+    color: rgba(85, 85, 85, 1);
+    margin: 0;
+}

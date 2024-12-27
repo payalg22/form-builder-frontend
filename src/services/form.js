@@ -43,3 +43,18 @@ export async function getForm(id, mode) {
     return handleApiRes(error.response);
   }
 }
+
+export async function updateForm(data) {
+    const token = localStorage.getItem("token");
+    try {
+      const response = await axios.patch(`${API_URL}/form/edit/${data._id}`, data, {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          Authorization: token,
+        },
+      });
+      return response;
+    } catch (error) {
+      return handleApiRes(error.response);
+    }
+  }

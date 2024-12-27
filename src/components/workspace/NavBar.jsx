@@ -4,7 +4,13 @@ import Toggle from "../common/Toggle";
 import { useNavigate } from "react-router-dom";
 import { closeIcon } from "../../assets/index";
 
-export default function NavBar({ name, handleView, handleSave, currView, handleShare }) {
+export default function NavBar({
+  name,
+  handleView,
+  handleSave,
+  currView,
+  handleShare,
+}) {
   const [formName, setFormName] = useState(name);
   const navigate = useNavigate();
 
@@ -22,9 +28,10 @@ export default function NavBar({ name, handleView, handleSave, currView, handleS
         onChange={handleName}
       />
       <div className={styles.view}>
-        {["Flow", "Response"].map((option) => {
+        {["Flow", "Response"].map((option, idx) => {
           return (
             <div
+              key={idx}
               onClick={() => {
                 handleView(option);
               }}
@@ -37,9 +44,17 @@ export default function NavBar({ name, handleView, handleSave, currView, handleS
       </div>
       <div className={styles.menu}>
         <Toggle />
-        <button className={styles.share} onClick={handleShare}>Share</button>
-        <button className={styles.save} onClick={() => handleSave(formName)}>Save</button>
-        <img src={closeIcon} className={styles.close} onClick={() => navigate(-1)} />
+        <button className={styles.share} onClick={handleShare}>
+          Share
+        </button>
+        <button className={styles.save} onClick={() => handleSave(formName)}>
+          Save
+        </button>
+        <img
+          src={closeIcon}
+          className={styles.close}
+          onClick={() => navigate(-1)}
+        />
       </div>
     </div>
   );

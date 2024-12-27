@@ -40,7 +40,6 @@ export default function FormStack({ isAuthorised, folder, owner }) {
 
   async function getForms() {
     const res = await getallForms(folder);
-    console.log(res);
     if (res.status === 200) {
       setallForms(res.data);
     } else {
@@ -64,7 +63,7 @@ export default function FormStack({ isAuthorised, folder, owner }) {
       )}
       {allForms.map((form) => {
         return (
-          <div className={styles.form}>
+          <div className={styles.form} key={form._id}>
             {isAuthorised.editor && (
               <div className={styles.delete}>
                 <DeletePopup item={"form"} />

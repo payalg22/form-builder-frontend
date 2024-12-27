@@ -18,6 +18,8 @@ import lock from "./lock.png";
 import email from "./email.png";
 import add from "./add.png";
 import closeIcon from "./close.png";
+import flag from "./flag.png";
+import flagLight from "./flagligh.png";
 
 export {
   back,
@@ -40,4 +42,6 @@ export {
   email,
   add,
   closeIcon,
+  flag,
+  flagLight
 };

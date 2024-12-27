@@ -15,6 +15,7 @@
 .dark {
   --primary-color: rgba(255, 255, 255, 0.92);
   --primary-background: rgba(31, 31, 35, 1);
+  --secondary-background: rgba(24, 24, 27, 1);
   --border-color: rgba(255, 255, 255, 0.16);
   --secondary-color: rgba(26, 95, 255, 1);
   background: linear-gradient(0deg, #121212, #121212),
@@ -25,8 +26,23 @@
 .light {
   --primary-color: rgba(0, 0, 0, 0.92);
   --primary-background: rgba(255, 255, 255, 1);
+  --secondary-background: rgba(255, 255, 255, 1);
   --border-color: rgba(214, 214, 214, 1);
   --secondary-color: rgba(177, 177, 177, 1);
   background-color: white;
   color: rgba(0, 0, 0, 0.92);
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgba(50, 50, 50, 1);
+    border-radius: 10px;
 }
