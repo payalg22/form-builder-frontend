@@ -1,25 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Toggle.module.css";
 import { useApp } from "../../context/AppContext";
 
 export default function Toggle() {
-  const { isDark, toggleTheme } = useApp();
-  const [theme, setTheme] = useState(isDark ? "dark" : "light");
-
-  const handleTheme = () => {
-    const val = theme === "dark" ? "light" : "dark";
-    setTheme(val);
-    toggleTheme();
-  };
+  const { toggleTheme } = useApp();
 
   return (
-    <div
-      className={
-        styles.container + " " + (theme === "dark" ? styles.dark : styles.light)
-      }
-    >
+    <div className={styles.container}>
       <p>Light</p>
-      <div className={styles.bar} onClick={handleTheme}>
+      <div className={styles.bar} onClick={toggleTheme}>
         <div className={styles.toggle}></div>
       </div>
       <p>Dark</p>

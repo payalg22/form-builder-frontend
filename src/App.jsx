@@ -6,6 +6,7 @@ import { useApp } from "./context/AppContext";
 import { ToastContainer } from "react-toastify";
 import ShareWorkspace from "./pages/share/ShareWorkspace";
 import FormWorkspace from "./pages/workspace/FormWorkspace";
+import PublishForm from "./pages/publish/PublishForm";
 
 function App() {
   const [theme, setTheme] = useState("dark");
@@ -29,6 +30,7 @@ function App() {
             <Route path="/share/:id/:role" element={<ShareWorkspace />} />
             <Route path="/form">
               <Route path="edit/:id" element={<FormWorkspace />} />
+              <Route path="publish/:id" element={<PublishForm />} />
             </Route>
           </Routes>
         </BrowserRouter>

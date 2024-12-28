@@ -2,17 +2,17 @@ import React from "react";
 import styles from "./SidePanel.module.css";
 import { bubbleLabels, inputLabels } from "../../data";
 
-function Label({ label, handleClick }) {
-  const { icon, type } = label;
+function Label({ field, handleClick }) {
+  const { icon, label } = field;
   return (
     <div
       className={styles.label}
       onClick={() => {
-        handleClick(label);
+        handleClick(field);
       }}
     >
       <img src={icon} />
-      <p>{type === "Bubble" ? "Text" : type}</p>
+      <p>{label}</p>
     </div>
   );
 }
@@ -22,17 +22,17 @@ export default function SidePanel({ handleAddElement }) {
     <div className={styles.container}>
       <p>Bubbles</p>
       <div className={styles.bubbles}>
-        {bubbleLabels.map((label, idx) => {
+        {bubbleLabels.map((field, idx) => {
           return (
-            <Label key={idx} label={label} handleClick={handleAddElement} />
+            <Label key={idx} field={field} handleClick={handleAddElement} />
           );
         })}
       </div>
       <p>Inputs</p>
       <div className={styles.inputs}>
-        {inputLabels.map((label, idx) => {
+        {inputLabels.map((field, idx) => {
           return (
-            <Label key={idx} label={label} handleClick={handleAddElement} />
+            <Label key={idx} field={field} handleClick={handleAddElement} />
           );
         })}
       </div>

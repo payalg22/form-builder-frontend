@@ -30,10 +30,10 @@
     transition: all 1s ease-in 0s;
 }
 
-.dark .bar {
+:global(.dark) .bar {
     justify-content: flex-end;
 }
 
-.light .bar {
+:global(.light) .bar {
     justify-content: flex-start;
 }

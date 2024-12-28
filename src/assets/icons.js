@@ -7,6 +7,8 @@ import phoneIcon from "./phone.png";
 import dateIcon from "./date.png";
 import ratingIcon from "./rating.png";
 import buttonIcon from "./buttons.png";
+import profile from "./profile.png";
+import send from "./send.png";
 
 export {
   textBubble,
@@ -18,4 +20,6 @@ export {
   phoneIcon,
   ratingIcon,
   buttonIcon,
+  profile,
+  send,
 };

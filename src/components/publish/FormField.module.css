@@ -1,0 +1,112 @@
+.bubble {
+  display: flex;
+  gap: 10px;
+}
+
+.bubble > p,
+.image {
+  margin: 0;
+  padding: 15px 10px;
+  background-color: rgb(238, 245, 250);
+  border-radius: 5px;
+  color: rgba(0, 0, 0, 0.92);
+}
+
+.profile {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 1);
+}
+
+.image {
+  height: 300px;
+  width: 450px;
+}
+
+.field,
+.rating {
+  align-self: flex-end;
+}
+
+.inputbox,
+.rating {
+  align-self: flex-end;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.input,
+.rating {
+  padding: 15px 10px;
+  width: 300px;
+  box-shadow: 0px 4px 6.3px 0px rgba(0, 0, 0, 0.25);
+  border-radius: 4px;
+  color: var(--primary-color);
+  border: none;
+}
+
+.input::placeholder {
+  color: rgba(132, 127, 127, 1);
+}
+
+:global(.dark) .input,
+:global(.dark) .rating {
+  background-color: rgba(119, 119, 119, 1);
+}
+
+:global(.dark) .input::placeholder {
+  color: rgba(255, 255, 255, 1);
+}
+
+.send {
+  padding: 12px;
+  background-color: rgba(26, 95, 255, 1);
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+:global(:dark) .send {
+  background-color: rgba(119, 119, 119, 1);
+}
+
+.submitted {
+  padding: 10px;
+  border-radius: 6px;
+  background-color: rgba(255, 142, 33, 1);
+  color: rgba(255, 255, 255, 1);
+  margin: 10px 0;
+}
+
+.submit {
+  padding: 10px 15px;
+  background-color: rgba(5, 62, 196, 1);
+  cursor: pointer;
+  border-radius: 6px;
+  color: rgba(255, 255, 255, 1);
+  border: none;
+  width: 200px;
+  align-self: flex-end;
+}
+
+.rating {
+  justify-content: space-around;
+  padding: 10px;
+}
+
+.rate,
+.selected {
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  color: rgba(255, 255, 255, 1);
+  background-color: rgba(26, 95, 255, 1);
+  padding: 5px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.selected {
+  background-color: rgba(255, 142, 33, 1);
+}

@@ -46,15 +46,22 @@ export default function FormWorkspace() {
       notify("Fields can't be added after buttons", "warn");
       return;
     }
-    const type = ele.type.toLowerCase();
-    const label = type in pointer ? pointer[type] : 1;
+    const type = ele.type;
+    let num = type in pointer ? pointer[type] : 1;
+    const prefix = type === "bubble" || type === "image" ? "" : "Input ";
+    let label = prefix + ele.label + " " + num;
+    const checkIsEle = formFlow.find((field) => field.name === label);
+    console.log(checkIsEle);
+    if (checkIsEle) {
+      num += 1;
+      label = ele.label + " " + num;
+    }
     const newEle = {
       _id: Date.now(),
-      label: ele.type + " " + label,
+      label,
       placeholder: ele.placeholder,
-      inputType: ele.type === "Phone" ? "tel" : type,
+      inputType: type,
     };
-    newEle.inputType = ele.type === "Buttons" ? "submit" : newEle.inputType;
     setFormFlow([...formFlow, newEle]);
   };
 
@@ -105,7 +112,7 @@ export default function FormWorkspace() {
 
   const handleShareForm = () => {
     const base = window.location.origin;
-    const link = `${base}/form/view/${id}`;
+    const link = `${base}/form/publish/${id}`;
     navigator.clipboard.writeText(link);
     notify("Link Copied", "success");
     close();
