@@ -13,8 +13,14 @@
   font-weight: 600;
 }
 
+.left, .menu {
+    width: 45%;
+}
+
+
 .input {
     color: rgba(118, 118, 118, 0.82);
+    margin: 5px;
 }
 
 .input, .menu > button {
@@ -38,10 +44,6 @@
   align-items: center;
 }
 
-.view {
-    margin-left: 10%;
-}
-
 .view > * {
   padding: 7.5px 15px;
   cursor: pointer;
@@ -61,6 +63,7 @@
 
 .menu {
     gap: 25px;
+    justify-content: flex-end;
 }
 
 .share {

@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import React, { useEffect, useRef, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import styles from "./PublishForm.module.css";
 import Toggle from "../../components/common/Toggle";
 import { getForm } from "../../services/form";
 import { profile, send } from "../../assets/icons";
 import FormField from "../../components/publish/FormField";
 import Loading from "../../components/common/Loading";
+import { addResponse, newResponse } from "../../services/response";
+import notify from "../../utils/notify";
 
 export default function PublishForm() {
   const [isLoading, setIsLoading] = useState(true);
@@ -16,27 +18,40 @@ export default function PublishForm() {
   const [response, setResponse] = useState([]); //stores responses
   const [pointer, setPointer] = useState(-1); //points to index of last displayed field
   const [dataPointer, setDataPointer] = useState(1);
+  const navigate = useNavigate();
+  const inputRef = useRef(null);
 
   useEffect(() => {
     getForm(id, "view").then((data) => {
       if (data._id) {
-        console.log(data);
         setForm(data.fields);
         setIsLoading(false);
-        //setFlow([data.fields[0]]);
+        inputRef.current?.focus();
+      } else if (data.status === 404 || data.status === 400) {
+        navigate("*");
+      } else {
+        notify("Something went wrong. Please try again later", "error");
       }
     });
   }, []);
 
   useEffect(() => {
-    console.log(pointer);
-    console.log(form.slice(0, pointer + 1));
-    const type = form[pointer]?.inputType;
+    const curr = form[pointer];
+    const type = curr?.inputType;
     if (type === "bubble" || type === "image") {
-      setResponse([...response, form[pointer]]);
-      setPointer(pointer + 1);
+      const bubble = { label: curr.label, value: curr.placeholder };
+      setResponse([...response, bubble]);
+      const field = { field: bubble };
+      addResponse(field, resId).then(() => {
+        setPointer(pointer + 1);
+      });
     }
   }, [pointer]);
+
+  useEffect(() => {
+    inputRef.current?.focus();
+    inputRef.current?.scrollIntoView();
+  }, [pointer, dataPointer])
 
   const dataFields = [
     {
@@ -61,23 +76,31 @@ export default function PublishForm() {
     },
   ];
 
-  const handleSubmit = (val) => {
-    if (form[pointer].inputType === "submit") {
+  const handleSubmit = async (val) => {
+    console.log(val);
+    const field = { field: val };
+    setResponse([...response, val]);
+    const res = await addResponse(field, resId);
+    console.log(res);
+    if (form[pointer].inputType === "submit" || pointer + 1 === form.length) {
       console.log(response);
+      navigate("/thank-you");
       //TODO : connect to backend and "Thank you" page
     } else {
-      console.log(val);
-      setResponse([...response, val]);
       setPointer(pointer + 1);
     }
   };
 
-  const handleUserData = () => {
+  const handleUserData = async () => {
     setDataPointer(dataPointer + 1);
     if (dataPointer === 2) {
-        //TODO: new response api and store resposne id in resId
-      console.log("Hit new response api", userData);
-      setPointer(0);
+      const res = await newResponse(userData, id);
+      if (res.status === 201) {
+        setResId(res.data.id);
+        setPointer(0);
+      } else {
+        notify(res.data.message, "error");
+      }
     }
   };
 
@@ -98,6 +121,7 @@ export default function PublishForm() {
                 field={field}
                 pointer={dataPointer}
                 handleSend={handleUserData}
+                ref={idx === dataPointer ? inputRef : null}
               />
             );
           })}
@@ -110,6 +134,7 @@ export default function PublishForm() {
                 pointer={pointer}
                 handleSend={handleSubmit}
                 response={response[idx]?.value}
+                ref={idx === pointer ? inputRef : null}
               />
             );
           })}

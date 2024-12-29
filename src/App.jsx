@@ -1,12 +1,20 @@
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Dashboard, Landing, Login, Register, Settings } from "./pages/index";
+import {
+  Dashboard,
+  Landing,
+  Login,
+  Register,
+  Settings,
+  ShareWorkspace,
+  FormWorkspace,
+  PublishForm,
+  ThankYou,
+  NotFound,
+} from "./pages/index";
 import { useEffect, useState } from "react";
 import { useApp } from "./context/AppContext";
 import { ToastContainer } from "react-toastify";
-import ShareWorkspace from "./pages/share/ShareWorkspace";
-import FormWorkspace from "./pages/workspace/FormWorkspace";
-import PublishForm from "./pages/publish/PublishForm";
 
 function App() {
   const [theme, setTheme] = useState("dark");
@@ -32,6 +40,8 @@ function App() {
               <Route path="edit/:id" element={<FormWorkspace />} />
               <Route path="publish/:id" element={<PublishForm />} />
             </Route>
+            <Route path="/thank-you" element={<ThankYou />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
       </div>

@@ -20,13 +20,17 @@ export default function NavBar({
 
   return (
     <div className={styles.container}>
-      <input
-        type="text"
-        value={formName}
-        placeholder="Enter Form Name"
-        className={styles.input}
-        onChange={handleName}
-      />
+      <div className={styles.left}>
+        {currView === "Flow" && (
+          <input
+            type="text"
+            value={formName}
+            placeholder="Enter Form Name"
+            className={styles.input}
+            onChange={handleName}
+          />
+        )}
+      </div>
       <div className={styles.view}>
         {["Flow", "Response"].map((option, idx) => {
           return (

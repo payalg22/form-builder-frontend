@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import styles from "./Flow.module.css";
 import SidePanel from "./SidePanel";
 import { flag, flagLight } from "../../assets/index";
@@ -13,6 +13,12 @@ export default function Flow({
 }) {
   const { isDark } = useApp();
   const flagIcon = isDark ? flag : flagLight;
+  const fieldRef = useRef(null);
+
+  useEffect(() => {
+    fieldRef.current?.scrollIntoView();
+    fieldRef.current?.focus();
+  }, [formFlow]);
 
   return (
     <div className={styles.container}>
@@ -24,13 +30,14 @@ export default function Flow({
           <img src={flagIcon} />
           <p>Start</p>
         </div>
-        {formFlow.map((field) => {
+        {formFlow.map((field, idx) => {
           return (
             <FlowField
               key={field._id}
               field={field}
               handleChange={handleBubble}
               handleDelete={handleDeleteField}
+              ref={formFlow.length - 1 === idx ? fieldRef : null}
             />
           );
         })}

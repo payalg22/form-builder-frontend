@@ -57,4 +57,20 @@ export async function updateForm(data) {
     } catch (error) {
       return handleApiRes(error.response);
     }
-  }
+}
+
+export async function deleteForm(id) {
+    const token = localStorage.getItem("token");
+    try {
+      const response = await axios.delete(`${API_URL}/form/${id}`, {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          Authorization: token,
+        },
+      });
+      return response;
+    } catch (error) {
+        console.log(error);
+      return handleApiRes(error.response);
+    }
+}

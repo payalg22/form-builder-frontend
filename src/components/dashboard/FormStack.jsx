@@ -3,7 +3,7 @@ import styles from "./FormStack.module.css";
 import { add } from "../../assets/index";
 import DeletePopup from "./DeletePopup";
 import NewItemModal from "./NewItemModal";
-import { createForm, getallForms } from "../../services/form";
+import { createForm, deleteForm, getallForms } from "../../services/form";
 import notify from "../../utils/notify";
 import { useNavigate } from "react-router-dom";
 
@@ -38,6 +38,17 @@ export default function FormStack({ isAuthorised, folder, owner }) {
     }
   };
 
+  async function handleDeleteForm(id) {
+    const res = await deleteForm(id, "id");
+    console.log(res);
+    if (res.status === 200) {
+      notify("Form deleted successfully", "success");
+      await getForms();
+    } else {
+      notify(res.data.message, "error");
+    }
+  }
+
   async function getForms() {
     const res = await getallForms(folder);
     if (res.status === 200) {
@@ -66,7 +77,7 @@ export default function FormStack({ isAuthorised, folder, owner }) {
           <div className={styles.form} key={form._id}>
             {isAuthorised.editor && (
               <div className={styles.delete}>
-                <DeletePopup item={"form"} />
+                <DeletePopup item={"form"} handleDelete={() => handleDeleteForm(form._id)} />
               </div>
             )}
             <p

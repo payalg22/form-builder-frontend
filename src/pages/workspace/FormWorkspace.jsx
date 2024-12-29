@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./FormWorkspace.module.css";
 import { useParams } from "react-router-dom";
 import { getForm, updateForm } from "../../services/form";
@@ -115,7 +115,6 @@ export default function FormWorkspace() {
     const link = `${base}/form/publish/${id}`;
     navigator.clipboard.writeText(link);
     notify("Link Copied", "success");
-    close();
   };
 
   return (
@@ -139,7 +138,7 @@ export default function FormWorkspace() {
               handleDeleteField={handleDeleteField}
             />
           ) : (
-            <Response />
+            <Response form={formData} />
           )}
         </div>
       )}

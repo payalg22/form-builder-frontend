@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { forwardRef, useEffect, useState } from "react";
 import styles from "./FlowField.module.css";
 import { remove } from "../../assets/index";
 
-export default function FlowField({ field, handleChange, handleDelete }) {
+const FlowField = forwardRef(({ field, handleChange, handleDelete }, ref) => {
   const { placeholder, label, inputType, _id, error } = field;
   const [isError, setIsError] = useState(error || false);
 
@@ -43,11 +43,12 @@ export default function FlowField({ field, handleChange, handleDelete }) {
               handleChange(_id, e.target.value);
             }}
             onBlur={handleIsErr}
+            ref={ref}
           />
           {isError && <p className={styles.error}>Required field</p>}
         </>
       ) : (
-        <p className={styles.hint}>
+        <p className={styles.hint}  ref={ref}>
           Hint : User will
           {inputType === "date"
             ? ` select a date`
@@ -56,4 +57,6 @@ export default function FlowField({ field, handleChange, handleDelete }) {
       )}
     </div>
   );
-}
+});
+
+export default FlowField;

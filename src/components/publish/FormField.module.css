@@ -3,6 +3,12 @@
   gap: 10px;
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 .bubble > p,
 .image {
   margin: 0;
@@ -109,4 +115,73 @@
 
 .selected {
   background-color: rgba(255, 142, 33, 1);
+}
+
+.bubble,
+.submit,
+.submitted,
+.field {
+  transition: opacity ease 2s;
+}
+
+@media (max-width: 768px) {
+  .profile {
+    height: 45px;
+    width: 45px;
+  }
+
+  .input,
+  .bubble > p,
+  .send {
+    height: 45px;
+    padding: 12px;
+  }
+
+  .image {
+    height: 250px;
+    max-width: 400px;
+    width: 85%;
+  }
+}
+
+@media (max-width: 768px) {
+  .profile {
+    height: 45px;
+    width: 45px;
+  }
+
+  .input,
+  .bubble > p,
+  .send {
+    height: 45px;
+    padding: 12px;
+  }
+
+  .bubble > p,
+  .submitted {
+    min-height: 24px;
+    height: fit-content;
+  }
+
+  .image {
+    height: 250px;
+    max-width: 400px;
+    width: 85%;
+  }
+}
+
+@media (max-width: 425px) {
+  .image {
+    height: 185px;
+    max-width: 350px;
+    width: 85%;
+  }
+
+  .input {
+    max-width: 225px;
+  }
+
+  .send {
+    padding: 12px 8px;
+  }
 }
