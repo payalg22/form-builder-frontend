@@ -1,0 +1,31 @@
+.container {
+    margin: 20px;
+}
+
+.table {
+  min-width: 90%;
+  margin: auto;
+  border-collapse: collapse;
+  border: 2px solid rgba(44, 44, 47, 1);
+}
+
+.table th,
+.table td {
+  border: 2px solid rgba(44, 44, 47, 1);
+  padding: 10px;
+  text-align: left;
+  min-width: 150px;
+}
+
+th.serial, td.serial {
+    min-width: 25px;
+    width: 50px;
+    text-align: center;
+}
+
+.time {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    border: none !important;
+}

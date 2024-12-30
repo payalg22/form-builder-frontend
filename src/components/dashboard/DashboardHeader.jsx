@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./DashboardHeader.module.css";
 import Toggle from "../common/Toggle";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -15,6 +15,14 @@ export default function DashboardHeader({
 }) {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
   const navigate = useNavigate();
+  const menuRef = useRef(null);
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOut);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOut);
+    };
+  }, []);
 
   const handleMenu = () => {
     setIsOpenMenu(!isOpenMenu);
@@ -27,6 +35,12 @@ export default function DashboardHeader({
       setIsOpenMenu(false);
     }
   };
+
+  function handleClickOut(e) {
+    if (menuRef.current && !menuRef.current.contains(e.target)) {
+      setIsOpenMenu(false);
+    }
+  }
 
   return (
     <div className={styles.container}>
@@ -41,7 +55,7 @@ export default function DashboardHeader({
             />
           </div>
           {isOpenMenu && (
-            <div className={styles.menu}>
+            <div className={styles.menu} ref={menuRef}>
               {workspaces.map((user, idx) => {
                 return (
                   <div key={user._id} onClick={() => handleSelectUser(user)}>

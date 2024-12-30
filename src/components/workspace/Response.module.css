@@ -1,0 +1,73 @@
+.container {
+    min-height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  font-family: "Open Sans", sans-serif;
+  gap: 25px;
+  align-items: center;
+  padding-top: 7%;
+  box-sizing: border-box;
+}
+
+.analytics {
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.stats {
+  min-width: 200px;
+  height: 120px;
+  padding: 15px 20px;
+  box-sizing: border-box;
+  font-size: 1.5em;
+  border-radius: 16px;
+  margin: 25px;
+  border: 1px solid var(--border-color);
+}
+
+:global(.dark) .stats {
+  background-color: rgba(50, 50, 50, 1);
+  color: rgba(255, 255, 255, 1);
+  border: none;
+}
+
+.stats > p:first-child {
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.stats p {
+  margin: 0;
+}
+
+.responses {
+  padding: 20px;
+  box-sizing: border-box;
+  height: 50vh;
+  width: 90vw;
+  overflow: auto;
+}
+
+.piechart {
+  margin: 20px;
+  display: flex;
+}
+
+.piechart p {
+    margin: 5px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 1.25em;
+}
+
+.noresponse {
+    font-family: 'Inter';
+    font-size: 3.25em;
+    color: rgba(105, 105, 105, 0.45);
+    margin: auto;
+    height: 100%;
+}

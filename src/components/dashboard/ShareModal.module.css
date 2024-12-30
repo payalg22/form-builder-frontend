@@ -20,6 +20,7 @@
     top: 0;
     cursor: pointer;
     padding: 10px;
+    margin: 10px;
 }
 
 .dark {
@@ -51,7 +52,7 @@
     padding: 15px 10px;
 }
 
-.dark .input, .dark .edit {
+.dark .input, .dark .edit > option {
     background-color: rgba(31, 31, 35, 1);
     color: rgba(255, 255, 255, 1);
     border: none;
@@ -64,9 +65,14 @@
 select.edit {
     float: right;
     padding: 10px 15px;
-    box-shadow: 0px 1px 3.5px 0px rgba(255, 255, 255, 0.25);
     color: white;
     font-weight: 600;
+    background-color: transparent !important;
+    border: none;
+}
+
+.edit > option {
+    box-shadow: 0px 1px 3.5px 0px rgba(255, 255, 255, 0.25);
 }
 
 .light .input, .light .edit {
