@@ -1,21 +1,18 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Dashboard.module.css";
 import DashboardHeader from "../../components/dashboard/DashboardHeader";
-import {
-  getWorkspace,
-  getWorkspaceData,
-} from "../../services/workspace";
+import { getWorkspace, getWorkspaceData } from "../../services/workspace";
 import Loading from "../../components/common/Loading";
 import { useApp } from "../../context/AppContext";
 import FolderStack from "../../components/dashboard/FolderStack";
 import FormStack from "../../components/dashboard/FormStack";
 
 export default function Dashboard() {
+    const { user, isLoading, setIsLoading } = useApp();
   const [workspaces, setWorkspaces] = useState("");
-  const [currDashboard, setCurrDashboard] = useState(null);
+  const [currDashboard, setCurrDashboard] = useState({owner: {name: user?.name || "Guest"}});
   const [collection, setCollection] = useState(null);
   const [currFolder, setCurrFolder] = useState();
-  const { user, isLoading, setIsLoading } = useApp();
   const [isAuthorised, setIsAuthorised] = useState({
     owner: false,
     editor: false,
@@ -23,16 +20,17 @@ export default function Dashboard() {
 
   //Get all the workspaces, user has access to
   useEffect(() => {
-    getWorkspace().then((data) => {
-      if (data) {
-        setWorkspaces(data);
-        if (user) {
-          const currDash = data.find((wkspc) => wkspc.owner._id === user._id);
-          setCurrDashboard(currDash);
-          setIsLoading(false);
+    getWorkspace()
+      .then((data) => {
+        if (data) {
+          setWorkspaces(data);
+          if (user) {
+            const currDash = data.find((wkspc) => wkspc.owner._id === user._id);
+            setCurrDashboard(currDash);
+          }
         }
-      }
-    });
+      })
+      .finally(() => setIsLoading(false));
   }, [user]);
 
   useEffect(getCollection, [currDashboard]);

@@ -2,8 +2,9 @@ const validatePassword = (val) => {
   if (val == "") {
     return "Please enter password";
   }
-  if (val.length < 8) {
-    return "Password should contain atleast 8 characters";
+  const passRegEx = /^(?=.*[!@#$%^&*(),.?":{}|<>])(?=.*\d)(?=.*[a-zA-Z]).{8,}$/;
+  if (!passRegEx.test(val)) {
+    return "Password should be 8 characters long, contain atleast 1 number, 1 special character and letters";
   }
 
   return false;

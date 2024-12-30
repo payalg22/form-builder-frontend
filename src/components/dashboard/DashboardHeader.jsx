@@ -29,7 +29,6 @@ export default function DashboardHeader({
   };
 
   const handleSelectUser = (user) => {
-    console.log(user);
     if (user._id !== curr._id) {
       handleSelect(user);
       setIsOpenMenu(false);

@@ -12,7 +12,7 @@ import { getUser, updateUser } from "../../services/user";
 import { validateUpdate } from "../../utils/validate";
 import { logout } from "../../utils/session";
 import notify from "../../utils/notify";
-import { use } from "react";
+import { useApp } from "../../context/AppContext";
 
 const Field = ({ field }) => {
   const [isVisible, setIsVisible] = useState(false);
@@ -51,9 +51,11 @@ const Field = ({ field }) => {
 };
 
 export default function Settings() {
+  const { user } = useApp();
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
+    _id: user._id,
+    name: user.name,
+    email: user.email,
     oldPassword: "",
     newPassword: "",
   });
@@ -63,9 +65,9 @@ export default function Settings() {
     oldPassword: false,
     newPassword: false,
   });
-  const [user, setUser] = useState();
+  // const [user, setUser] = useState();
 
-  useEffect(getUserDetails, []);
+  //useEffect(getUserDetails, []);
 
   useEffect(() => {
     setError({
@@ -119,22 +121,6 @@ export default function Settings() {
     },
   ];
 
-  function getUserDetails() {
-    getUser().then((data) => {
-      if (data) {
-        setFormData({
-          oldPassword: "",
-          newPassword: "",
-          name: data.name,
-          email: data.email,
-          _id: data._id,
-        });
-        setUser(data);
-      }
-      console.log(data);
-    });
-  }
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (
@@ -150,14 +136,19 @@ export default function Settings() {
       }
       const res = await updateUser(formData);
       if (res.status === 201) {
-        getUserDetails();
+        setFormData({
+          oldPassword: "",
+          newPassword: "",
+          name: res.name,
+          email: res.email,
+          _id: res._id,
+        });
         notify("Changes Saved", "success");
       } else if (res.status === 401) {
         setError({ ...error, oldPassword: res.data.message });
       } else if (res.status === 400) {
         setError({ ...error, newPassword: res.data.message });
       } else {
-        //TO DO : toast something went wrong
         notify("Something went wrong", "error");
       }
       return;

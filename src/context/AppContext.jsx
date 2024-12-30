@@ -10,14 +10,14 @@ export const AppProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem("token") || null);
 
   const toggleTheme = () => {
-    setIsDark(!isDark);
+    setIsDark((prev) => !prev);
   };
 
   useEffect(() => {
     if (token) {
       getUserDetails();
     } else {
-        //if not user then default theme will be applied
+      //if not user then default theme will be applied
       setIsDark(true);
     }
   }, [token]);
