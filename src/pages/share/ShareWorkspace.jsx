@@ -4,7 +4,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useApp } from "../../context/AppContext";
 import { shareWorkspace } from "../../services/workspace";
 import notify from "../../utils/notify";
-import { isLoggedUser } from "../../utils/session";
 
 export default function ShareWorkspace() {
   const { id, role } = useParams();

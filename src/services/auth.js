@@ -10,7 +10,6 @@ export async function register(data) {
         "Content-type": "application/x-www-form-urlencoded",
       },
     });
-    //console.log(response.data);
     return response;
   } catch (error) {
     return error.response;
@@ -24,7 +23,6 @@ export async function login(data) {
         "Content-type": "application/x-www-form-urlencoded",
       },
     });
-    //console.log(response.data);
     return response;
   } catch (error) {
     return error.response;

@@ -62,12 +62,26 @@
 .main {
   width: 100%;
   margin-top: 100px;
+  justify-content: center !important;
+}
+
+.main > img {
+    position: absolute;
+}
+
+.main > img:first-child {
+    left: 0;
+}
+
+.main > img:last-child {
+    right: 0;
 }
 
 .heading {
-  flex: 1;
   text-align: center;
   align-content: center;
+  max-width: 1000px;
+  z-index: 1;
 }
 
 .heading > h1 {

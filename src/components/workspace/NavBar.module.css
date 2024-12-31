@@ -81,3 +81,9 @@
   height: 34px;
   cursor: pointer;
 }
+
+@media (max-width: 1024px) {
+    .left {
+        width: fit-content;
+    }
+}

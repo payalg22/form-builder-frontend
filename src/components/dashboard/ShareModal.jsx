@@ -39,7 +39,6 @@ export default function ShareModal({ ele, id }) {
       isEditor: shareTo.role === "edit" ? true : false,
     };
     const res = await shareWorkspace(id, data);
-    console.log(res);
     if (res.status === 200) {
       close();
       notify("Shared successfully", "success");

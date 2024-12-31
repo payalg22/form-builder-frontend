@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./SidePanel.module.css";
-import { bubbleLabels, inputLabels } from "../../data";
+import { bubbleLabels, inputLabels } from "../../data/index";
 
 function Label({ field, handleClick }) {
   const { icon, label } = field;

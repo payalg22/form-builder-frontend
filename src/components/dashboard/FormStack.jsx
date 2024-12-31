@@ -17,9 +17,7 @@ export default function FormStack({ isAuthorised, folder, owner }) {
 
   const handleNewForm = async (name) => {
     const newForm = { folderId: folder, name, owner };
-    console.log(newForm);
     const res = await createForm(newForm);
-    console.log(res);
     if (res.status === 201) {
       await getForms();
       notify("Form created", "success");
@@ -40,7 +38,6 @@ export default function FormStack({ isAuthorised, folder, owner }) {
 
   async function handleDeleteForm(id) {
     const res = await deleteForm(id, "id");
-    console.log(res);
     if (res.status === 200) {
       notify("Form deleted successfully", "success");
       await getForms();
@@ -50,11 +47,9 @@ export default function FormStack({ isAuthorised, folder, owner }) {
   }
 
   async function getForms() {
-    const res = await getallForms(folder);
-    if (res.status === 200) {
-      setallForms(res.data);
-    } else {
-      setallForms([]);
+    if (folder) {
+      const res = await getallForms(folder);
+      setallForms(res.status === 200 ? res.data : []);
     }
   }
 
@@ -77,7 +72,10 @@ export default function FormStack({ isAuthorised, folder, owner }) {
           <div className={styles.form} key={form._id}>
             {isAuthorised.editor && (
               <div className={styles.delete}>
-                <DeletePopup item={"form"} handleDelete={() => handleDeleteForm(form._id)} />
+                <DeletePopup
+                  item={"form"}
+                  handleDelete={() => handleDeleteForm(form._id)}
+                />
               </div>
             )}
             <p

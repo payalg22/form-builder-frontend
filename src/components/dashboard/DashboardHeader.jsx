@@ -16,6 +16,15 @@ export default function DashboardHeader({
   const [isOpenMenu, setIsOpenMenu] = useState(false);
   const navigate = useNavigate();
   const menuRef = useRef(null);
+  const [wkspcList, setWkspcList] = useState();
+
+  useEffect(() => {
+    //reorganise menu
+    const list = [curr];
+    const rest = workspaces ? workspaces.filter((user) => user._id !== curr._id) : [];
+    list.push(...rest);
+    setWkspcList(list);
+  }, [curr]);
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOut);
@@ -55,7 +64,7 @@ export default function DashboardHeader({
           </div>
           {isOpenMenu && (
             <div className={styles.menu} ref={menuRef}>
-              {workspaces.map((user, idx) => {
+              {wkspcList.map((user, idx) => {
                 return (
                   <div key={user._id} onClick={() => handleSelectUser(user)}>
                     {`${user.owner.name}'s workspace`}

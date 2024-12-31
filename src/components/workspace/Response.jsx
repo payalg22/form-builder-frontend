@@ -20,8 +20,6 @@ export default function Response({ form }) {
     getFormResponses(form._id)
       .then((data) => {
         if (data.starts) {
-          console.log(data, "responses");
-          console.log(form, "form");
           setAnalytics({
             starts: data.starts,
             views: form.views,

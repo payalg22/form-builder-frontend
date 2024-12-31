@@ -15,6 +15,7 @@
 .main {
     justify-content: space-between;
     width: 65%;
+    min-width: 550px;
 }
 
 /* Workspace bar and dropdown */

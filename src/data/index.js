@@ -16,12 +16,37 @@ const bubbleLabels = [
 ];
 
 const inputLabels = [
-  { placeholder: "Enter your text", icon: textIcon, type: "text", label: "Text" },
-  { placeholder: "Enter a number", icon: numberIcon, type: "number", label: "Number" },
-  { placeholder: "Enter your email", icon: emailIcon, type: "email", label: "Email" },
-  { placeholder: "Enter your phone", icon: phoneIcon, type: "tel", label: "Phone" },
+  {
+    placeholder: "Enter your text",
+    icon: textIcon,
+    type: "text",
+    label: "Text",
+  },
+  {
+    placeholder: "Enter a number",
+    icon: numberIcon,
+    type: "number",
+    label: "Number",
+  },
+  {
+    placeholder: "Enter your email",
+    icon: emailIcon,
+    type: "email",
+    label: "Email",
+  },
+  {
+    placeholder: "Enter your phone",
+    icon: phoneIcon,
+    type: "tel",
+    label: "Phone",
+  },
   { placeholder: "Select a date", icon: dateIcon, type: "date", label: "Date" },
-  { placeholder: "Select rating", icon: ratingIcon, type: "rating", label: "Rate" },
+  {
+    placeholder: "Select rating",
+    icon: ratingIcon,
+    type: "rating",
+    label: "Rate",
+  },
   { placeholder: "", icon: buttonIcon, type: "submit", label: "Buttons" },
 ];
 

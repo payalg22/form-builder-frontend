@@ -8,15 +8,18 @@ import FolderStack from "../../components/dashboard/FolderStack";
 import FormStack from "../../components/dashboard/FormStack";
 
 export default function Dashboard() {
-    const { user, isLoading, setIsLoading } = useApp();
+  const { user, isLoading, setIsLoading } = useApp();
   const [workspaces, setWorkspaces] = useState("");
-  const [currDashboard, setCurrDashboard] = useState({owner: {name: user?.name || "Guest"}});
+  const [currDashboard, setCurrDashboard] = useState({
+    owner: { name: user?.name || "Guest" },
+  });
   const [collection, setCollection] = useState(null);
   const [currFolder, setCurrFolder] = useState();
   const [isAuthorised, setIsAuthorised] = useState({
     owner: false,
     editor: false,
   });
+  const [isPageLoading, setIsPageLoading] = useState(true); //on page refresh
 
   //Get all the workspaces, user has access to
   useEffect(() => {
@@ -30,7 +33,10 @@ export default function Dashboard() {
           }
         }
       })
-      .finally(() => setIsLoading(false));
+      .finally(() => {
+        setIsLoading(false);
+        setIsPageLoading(false);
+    });
   }, [user]);
 
   useEffect(getCollection, [currDashboard]);
@@ -55,7 +61,7 @@ export default function Dashboard() {
 
   //To get all the folders associated with user/ selected workspace
   function getCollection() {
-    if (currDashboard) {
+    if (currDashboard._id) {
       getWorkspaceData(currDashboard._id).then((data) => {
         if (data) {
           setCollection(data);
@@ -71,7 +77,7 @@ export default function Dashboard() {
 
   return (
     <div className={styles.container}>
-      {isLoading ? (
+      {isLoading && isPageLoading ? (
         <Loading />
       ) : (
         <div className={styles.main}>

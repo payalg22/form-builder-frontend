@@ -45,32 +45,35 @@ export async function getForm(id, mode) {
 }
 
 export async function updateForm(data) {
-    const token = localStorage.getItem("token");
-    try {
-      const response = await axios.patch(`${API_URL}/form/edit/${data._id}`, data, {
+  const token = localStorage.getItem("token");
+  try {
+    const response = await axios.patch(
+      `${API_URL}/form/edit/${data._id}`,
+      data,
+      {
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
           Authorization: token,
         },
-      });
-      return response;
-    } catch (error) {
-      return handleApiRes(error.response);
-    }
+      }
+    );
+    return response;
+  } catch (error) {
+    return handleApiRes(error.response);
+  }
 }
 
 export async function deleteForm(id) {
-    const token = localStorage.getItem("token");
-    try {
-      const response = await axios.delete(`${API_URL}/form/${id}`, {
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-          Authorization: token,
-        },
-      });
-      return response;
-    } catch (error) {
-        console.log(error);
-      return handleApiRes(error.response);
-    }
+  const token = localStorage.getItem("token");
+  try {
+    const response = await axios.delete(`${API_URL}/form/${id}`, {
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        Authorization: token,
+      },
+    });
+    return response;
+  } catch (error) {
+    return handleApiRes(error.response);
+  }
 }

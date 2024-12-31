@@ -45,6 +45,7 @@
 }
 
 .input {
+    box-sizing: border-box;
     width: 100%;
     font-weight: 600;
     font-size: 1em;
@@ -69,6 +70,7 @@ select.edit {
     font-weight: 600;
     background-color: transparent !important;
     border: none;
+    border-radius: 12px;
 }
 
 .edit > option {

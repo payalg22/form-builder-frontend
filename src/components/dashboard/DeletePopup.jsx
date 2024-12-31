@@ -11,8 +11,8 @@ export default function DeletePopup({ item, handleDelete }) {
     <Popup
       trigger={<img src={remove} />}
       overlayStyle={{ backgroundColor: "transparent" }}
-      position={"bottom"}
       tooltip={false}
+      position={"bottom center"}
     >
       {(close) => (
         <div

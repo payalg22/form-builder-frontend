@@ -39,7 +39,6 @@ export default function FolderStack({
 
   const handleDeleteFolder = async (id) => {
     const res = await deleteFolder(collection._id, id);
-    console.log(res);
     if (res.status === 201) {
       reload();
       notify("Folder deleted", "success");

@@ -41,7 +41,6 @@ export default function FormWorkspace() {
   }, [formFlow]);
 
   const handleAddElement = (ele) => {
-    console.log(pointer);
     if ("submit" in pointer) {
       notify("Fields can't be added after buttons", "warn");
       return;
@@ -51,7 +50,6 @@ export default function FormWorkspace() {
     const prefix = type === "bubble" || type === "image" ? "" : "Input ";
     let label = prefix + ele.label + " " + num;
     const checkIsEle = formFlow.find((field) => field.name === label);
-    console.log(checkIsEle);
     if (checkIsEle) {
       num += 1;
       label = ele.label + " " + num;
@@ -83,7 +81,6 @@ export default function FormWorkspace() {
 
   const handleSaveForm = async (name) => {
     const isError = formFlow.filter((field) => !field.placeholder);
-    console.log(isError);
     if (isError.length) {
       setFormFlow(
         formFlow.map((field) =>
@@ -101,7 +98,6 @@ export default function FormWorkspace() {
       });
       const form = { ...formData, name, fields };
       const res = await updateForm(form);
-      console.log(res);
       if (res.status === 201) {
         notify("Form Saved", "success");
       } else {

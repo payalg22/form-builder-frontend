@@ -51,7 +51,7 @@ export default function PublishForm() {
   useEffect(() => {
     inputRef.current?.focus();
     inputRef.current?.scrollIntoView();
-  }, [pointer, dataPointer])
+  }, [pointer, dataPointer]);
 
   const dataFields = [
     {
@@ -77,15 +77,11 @@ export default function PublishForm() {
   ];
 
   const handleSubmit = async (val) => {
-    console.log(val);
     const field = { field: val };
     setResponse([...response, val]);
     const res = await addResponse(field, resId);
-    console.log(res);
     if (form[pointer].inputType === "submit" || pointer + 1 === form.length) {
-      console.log(response);
       navigate("/thank-you");
-      //TODO : connect to backend and "Thank you" page
     } else {
       setPointer(pointer + 1);
     }
