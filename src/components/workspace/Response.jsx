@@ -32,7 +32,7 @@ export default function Response({ form }) {
   }, []);
 
   return (
-    <>
+    <div className={styles.outer}>
       {isLoading ? (
         <Loading />
       ) : (
@@ -80,6 +80,6 @@ export default function Response({ form }) {
           )}
         </div>
       )}
-    </>
+    </div>
   );
 }

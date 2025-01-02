@@ -31,6 +31,7 @@ export default function ResTable({ fields, responses }) {
       <tbody>
         {responses.map((response, idx) => {
           const extraCells = fields.length - response.fields.length;
+          
           return (
             <tr key={response._id}>
               <td className={styles.serial}>{idx + 1}</td>
@@ -38,7 +39,7 @@ export default function ResTable({ fields, responses }) {
               {response.fields.map((field) => {
                 return <td key={field._id}>{field.value}</td>;
               })}
-              {Array(extraCells)
+              {(extraCells > 0) && Array(extraCells)
                 .fill(null)
                 .map((_, idx) => (
                   <td key={idx}></td>

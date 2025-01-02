@@ -23,6 +23,7 @@ export default function PublishForm() {
 
   useEffect(() => {
     getForm(id, "view").then((data) => {
+      console.log(data);
       if (data._id) {
         setForm(data.fields);
         setIsLoading(false);
@@ -80,10 +81,12 @@ export default function PublishForm() {
     const field = { field: val };
     setResponse([...response, val]);
     const res = await addResponse(field, resId);
-    if (form[pointer].inputType === "submit" || pointer + 1 === form.length) {
-      navigate("/thank-you");
-    } else {
-      setPointer(pointer + 1);
+    if (res.status === 201 || res.status === 409) {
+      if (form[pointer].inputType === "submit" || pointer + 1 === form.length) {
+        navigate("/thank-you");
+      } else {
+        setPointer(pointer + 1);
+      }
     }
   };
 
