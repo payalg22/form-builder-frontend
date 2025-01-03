@@ -12,9 +12,8 @@ export default function Response({ form }) {
     starts: "",
     views: "",
   });
-  const [completed, setCompleted] = useState();
-  const compPer = (completed / analytics.starts) * 100;
-  const fields = form?.fields;
+  const [completed, setCompleted] = useState(0);
+  const [fields, setFields] = useState([]);
 
   useEffect(() => {
     getFormResponses(form._id)
@@ -25,7 +24,8 @@ export default function Response({ form }) {
             views: form.views,
           });
           setResponses(data.responses);
-          setCompleted(data.completed);
+          setCompleted((data.completed / data.starts) * 100);
+          setFields(form.fields);
         }
       })
       .finally(() => setIsLoading(false));
@@ -55,25 +55,36 @@ export default function Response({ form }) {
                 <ResTable fields={fields} responses={responses} />
               </div>
               <div className={styles.analytics}>
-              <div className={styles.piechart}>
-                <PieChart
-                  data={[
-                    { title: "Completed", value: compPer, color: "rgba(59, 130, 246, 1)" },
-                    { title: "Start", value: 100 - compPer, color: "rgba(144, 144, 144, 1)" },
-                  ]}
-                  startAngle={270}
-                  lineWidth={30}
-                  totalValue={100}
-                  background="rgba(255, 255, 255, 1)"
-                  radius={50}
-                  paddingAngle={1}
-                  segmentsStyle={{strokeWidth: 14}}
-                />
-                <span><p>Completed</p><p>{compPer}</p></span>
+                <div className={styles.piechart}>
+                  <PieChart
+                    data={[
+                      {
+                        title: "Completed",
+                        value: completed,
+                        color: "rgba(59, 130, 246, 1)",
+                      },
+                      {
+                        title: "Start",
+                        value: 100 - completed,
+                        color: "rgba(144, 144, 144, 1)",
+                      },
+                    ]}
+                    startAngle={270}
+                    lineWidth={30}
+                    totalValue={100}
+                    background="rgba(255, 255, 255, 1)"
+                    radius={50}
+                    paddingAngle={1}
+                    segmentsStyle={{ strokeWidth: 14 }}
+                  />
+                  <span>
+                    <p>Completed</p>
+                    <p>{completed}</p>
+                  </span>
                 </div>
                 <div className={styles.stats}>
                   <p>Completed</p>
-                  {`${compPer} %`}
+                  {`${completed} %`}
                 </div>
               </div>
             </div>
