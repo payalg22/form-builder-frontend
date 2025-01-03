@@ -142,20 +142,6 @@ input::-webkit-inner-spin-button {
     max-width: 400px;
     width: 85%;
   }
-}
-
-@media (max-width: 768px) {
-  .profile {
-    height: 45px;
-    width: 45px;
-  }
-
-  .input,
-  .bubble > p,
-  .send {
-    height: 45px;
-    padding: 12px;
-  }
 
   .bubble > p,
   .submitted {
@@ -163,21 +149,20 @@ input::-webkit-inner-spin-button {
     height: fit-content;
   }
 
-  .image {
-    height: 250px;
-    max-width: 400px;
-    width: 85%;
+  .rating {
+    max-width: 275px;
   }
 }
 
-@media (max-width: 425px) {
+@media (max-width: 426px) {
   .image {
     height: 185px;
     max-width: 350px;
     width: 85%;
   }
 
-  .input {
+  .input,
+  .rating {
     max-width: 225px;
   }
 

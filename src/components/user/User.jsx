@@ -14,7 +14,6 @@ import Form from "./Form";
 export default function User({ isLogin, fields, action, path }) {
   const navigate = useNavigate();
   const label = isLogin ? "Log In" : "Sign Up";
-//   const path = isLogin ? "/register" : "/login/new";
   const link = isLogin ? "Register Now" : "Login";
   const display = isLogin ? "Don't" : "Already";
 

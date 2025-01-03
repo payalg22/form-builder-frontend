@@ -21,7 +21,9 @@ export default function DashboardHeader({
   useEffect(() => {
     //reorganise menu
     const list = [curr];
-    const rest = workspaces ? workspaces.filter((user) => user._id !== curr._id) : [];
+    const rest = workspaces
+      ? workspaces.filter((user) => user._id !== curr._id)
+      : [];
     list.push(...rest);
     setWkspcList(list);
   }, [curr]);

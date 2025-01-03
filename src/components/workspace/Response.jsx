@@ -24,7 +24,7 @@ export default function Response({ form }) {
             views: form.views,
           });
           setResponses(data.responses);
-          setCompleted((data.completed / data.starts) * 100);
+          setCompleted(((data.completed / data.starts) * 100).toFixed(2));
           setFields(form.fields);
         }
       })

@@ -52,7 +52,7 @@ export default function LandingPage() {
         <LogoComp />
         <button
           className={styles.signin}
-          onClick={() => navigate("/login/new")}
+          onClick={() => navigate("/login")}
         >
           Sign In
         </button>

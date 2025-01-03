@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import styles from "./Flow.module.css";
 import SidePanel from "./SidePanel";
 import { flag, flagLight } from "../../assets/index";
