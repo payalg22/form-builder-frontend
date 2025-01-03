@@ -15,6 +15,9 @@ export default function FormWorkspace() {
   const [currView, setCurrView] = useState("Flow");
   const [formFlow, setFormFlow] = useState([]);
   const [pointer, setPointer] = useState({});
+  const [isNewField, setIsNewField] = useState(false);
+  const fieldRef = useRef(null);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     getForm(id, "edit")
@@ -40,6 +43,14 @@ export default function FormWorkspace() {
     );
   }, [formFlow]);
 
+  useEffect(() => {
+    if (isNewField) {
+      fieldRef.current?.scrollIntoView();
+      fieldRef.current?.focus();
+      setIsNewField(false);
+    }
+  }, [isNewField]);
+
   const handleAddElement = (ele) => {
     if ("submit" in pointer) {
       notify("Fields can't be added after buttons", "warn");
@@ -61,9 +72,11 @@ export default function FormWorkspace() {
       inputType: type,
     };
     setFormFlow([...formFlow, newEle]);
+    setIsNewField(true);
   };
 
   const handleBubble = (id, placeholder) => {
+    setIsNewField(false);
     setFormFlow(
       formFlow.map((field) =>
         field._id === id ? { ...field, placeholder: placeholder } : field
@@ -79,15 +92,21 @@ export default function FormWorkspace() {
     setCurrView(view);
   };
 
+  const handleFormError = (isErr) => {
+    setError(isErr);
+  }
+
   const handleSaveForm = async (name) => {
     const isError = formFlow.filter((field) => !field.placeholder);
     if (isError.length) {
       setFormFlow(
         formFlow.map((field) =>
-          !field.placeholder ? { ...field, error: true } : field
+          !field.placeholder ? { ...field, error: "Required Field" } : field
         )
       );
       notify("Please fill required fields", "error");
+    } else if (error) {
+        notify("Please provide valid image url", "error");
     } else {
       const fields = formFlow.map((field) => {
         return {
@@ -132,6 +151,8 @@ export default function FormWorkspace() {
               handleAddElement={handleAddElement}
               handleBubble={handleBubble}
               handleDeleteField={handleDeleteField}
+              fieldRef={fieldRef}
+              handleError={handleFormError}
             />
           ) : (
             <Response form={formData} />

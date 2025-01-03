@@ -10,15 +10,11 @@ export default function Flow({
   handleAddElement,
   handleDeleteField,
   handleBubble,
+  handleError,
+  fieldRef,
 }) {
   const { isDark } = useApp();
   const flagIcon = isDark ? flag : flagLight;
-  const fieldRef = useRef(null);
-
-  useEffect(() => {
-    fieldRef.current?.scrollIntoView();
-    fieldRef.current?.focus();
-  }, [formFlow]);
 
   return (
     <div className={styles.container}>
@@ -37,6 +33,7 @@ export default function Flow({
               field={field}
               handleChange={handleBubble}
               handleDelete={handleDeleteField}
+              handleError={handleError}
               ref={formFlow.length - 1 === idx ? fieldRef : null}
             />
           );

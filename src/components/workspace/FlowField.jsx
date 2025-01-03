@@ -2,7 +2,7 @@ import React, { forwardRef, useEffect, useState } from "react";
 import styles from "./FlowField.module.css";
 import { remove } from "../../assets/index";
 
-const FlowField = forwardRef(({ field, handleChange, handleDelete }, ref) => {
+const FlowField = forwardRef(({ field, handleChange, handleDelete, handleError }, ref) => {
   const { placeholder, label, inputType, _id, error } = field;
   const [isError, setIsError] = useState(error || false);
 
@@ -11,18 +11,22 @@ const FlowField = forwardRef(({ field, handleChange, handleDelete }, ref) => {
     return new Promise((resolve) => {
       const img = new Image();
       img.onload = () => resolve(true);
-      img.onerror = () => resolve(false); 
+      img.onerror = () => resolve(false);
       img.src = url;
     });
-};
+  };
 
   const handleIsErr = async (e) => {
     if (!e.target.value) {
       setIsError("Required Field");
+      handleError(true);
     } else if (inputType === "image") {
       const url = e.target.value;
-        const isValid = await isValidImg(url);  
-        !isValid && setIsError("Image URL not accessible");
+      const isValid = await isValidImg(url);
+      !isValid && setIsError("Image URL not accessible");
+      handleError(true);
+    } else {
+        handleError(false);
     }
   };
 
