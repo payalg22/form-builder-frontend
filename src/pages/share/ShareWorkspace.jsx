@@ -12,29 +12,31 @@ export default function ShareWorkspace() {
   let isToastDisplayed = false;
 
   useEffect(() => {
-    if (user && !isLoading) {
-      const data = {
-        email: user.email,
-        isEditor: role,
-      };
-      shareWorkspace(id, data).then((res) => {
+    if (!isLoading) {
+      if (user._id && !isLoading) {
+        const data = {
+          email: user.email,
+          isEditor: role,
+        };
+        shareWorkspace(id, data).then((res) => {
+          if (!isToastDisplayed) {
+            isToastDisplayed = true;
+            if (res.status === 200) {
+              notify("Workspace added", "success");
+            } else if (res.status === 400) {
+              notify("Workspace already added", "info");
+            } else {
+              notify("Something went wrong", "error");
+            }
+            navigate("/dashboard");
+          }
+        });
+      } else {
         if (!isToastDisplayed) {
           isToastDisplayed = true;
-          if (res.status === 200) {
-            notify("Workspace added", "success");
-          } else if (res.status === 400) {
-            notify("Workspace already added", "info");
-          } else {
-            notify("Something went wrong", "error");
-          }
-          navigate("/dashboard");
+          notify("Please login to continue", "warn");
+          navigate(`/login/${id}/${role}`);
         }
-      });
-    } else {
-      if (!isToastDisplayed) {
-        isToastDisplayed = true;
-        notify("Please login to continue", "warn");
-        navigate(`/login/${id}/${role}`);
       }
     }
   }, [user]);

@@ -13,6 +13,7 @@ import { validateUpdate } from "../../utils/validate";
 import { logout } from "../../utils/session";
 import notify from "../../utils/notify";
 import { useApp } from "../../context/AppContext";
+import Loading from "../../components/common/Loading";
 
 const Field = ({ field }) => {
   const [isVisible, setIsVisible] = useState(false);
@@ -51,11 +52,11 @@ const Field = ({ field }) => {
 };
 
 export default function Settings() {
-  const { user } = useApp();
+  const { user, setUser } = useApp();
   const [formData, setFormData] = useState({
-    _id: user._id,
-    name: user.name,
-    email: user.email,
+    _id: "",
+    name: "",
+    email: "",
     oldPassword: "",
     newPassword: "",
   });
@@ -65,9 +66,20 @@ export default function Settings() {
     oldPassword: false,
     newPassword: false,
   });
+  const [isLoading, setIsLoading] = useState(true);
   // const [user, setUser] = useState();
 
-  //useEffect(getUserDetails, []);
+  useEffect(() => {
+    if (user) {
+      setFormData({
+        ...formData,
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+      });
+      setIsLoading(false);
+    }
+  }, [user]);
 
   useEffect(() => {
     setError({
@@ -94,7 +106,7 @@ export default function Settings() {
       placeholder: "Update email",
       value: formData.email,
       onChange: (e) => {
-        setFormData({ ...formData, email: e.target.value });
+        setFormData({ ...formData, email: e.target.value.trim() });
       },
       error: error.email,
       icon: email,
@@ -136,13 +148,15 @@ export default function Settings() {
       }
       const res = await updateUser(formData);
       if (res.status === 201) {
+        const data = res.data;
         setFormData({
           oldPassword: "",
           newPassword: "",
-          name: res.name,
-          email: res.email,
-          _id: res._id,
+          name: data.name,
+          email: data.email,
+          _id: data._id,
         });
+        setUser({ ...user, name: data.name, email: data.email });
         notify("Changes Saved", "success");
       } else if (res.status === 401) {
         setError({ ...error, oldPassword: res.data.message });
@@ -159,18 +173,24 @@ export default function Settings() {
   };
 
   return (
-    <div className={styles.container}>
-      <p>Settings</p>
-      <form className={styles.form} onSubmit={handleSubmit}>
-        {fields.map((item, idx) => {
-          return <Field key={idx} field={item} />;
-        })}
-        <input type="submit" className={styles.submit} value="Update" />
-      </form>
-      <div className={styles.logout} onClick={logout}>
-        <img src={logoutIcon} />
-        <span>Log out</span>
-      </div>
-    </div>
+    <>
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <div className={styles.container}>
+          <p>Settings</p>
+          <form className={styles.form} onSubmit={handleSubmit}>
+            {fields.map((item, idx) => {
+              return <Field key={idx} field={item} />;
+            })}
+            <input type="submit" className={styles.submit} value="Update" />
+          </form>
+          <div className={styles.logout} onClick={logout}>
+            <img src={logoutIcon} />
+            <span>Log out</span>
+          </div>
+        </div>
+      )}
+    </>
   );
 }

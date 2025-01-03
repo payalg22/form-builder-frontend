@@ -25,7 +25,7 @@ export const AppProvider = ({ children }) => {
   function getUserDetails() {
     getUser()
       .then((data) => {
-        if (data) {
+        if (data._id) {
           setUser(data);
           setIsDark(data.isDarkTheme);
         }
@@ -46,7 +46,7 @@ export const AppProvider = ({ children }) => {
 
   return (
     <AppContext.Provider
-      value={{ isDark, toggleTheme, user, isLoading, setIsLoading, setToken }}
+      value={{ isDark, toggleTheme, user, setUser, isLoading, setIsLoading, setToken }}
     >
       {children}
     </AppContext.Provider>

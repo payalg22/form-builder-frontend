@@ -6,9 +6,23 @@ const FlowField = forwardRef(({ field, handleChange, handleDelete }, ref) => {
   const { placeholder, label, inputType, _id, error } = field;
   const [isError, setIsError] = useState(error || false);
 
-  const handleIsErr = (e) => {
+  //Check if image is accessible
+  const isValidImg = (url) => {
+    return new Promise((resolve) => {
+      const img = new Image();
+      img.onload = () => resolve(true);
+      img.onerror = () => resolve(false); 
+      img.src = url;
+    });
+};
+
+  const handleIsErr = async (e) => {
     if (!e.target.value) {
-      setIsError(true);
+      setIsError("Required Field");
+    } else if (inputType === "image") {
+      const url = e.target.value;
+        const isValid = await isValidImg(url);  
+        !isValid && setIsError("Image URL not accessible");
     }
   };
 
@@ -45,10 +59,10 @@ const FlowField = forwardRef(({ field, handleChange, handleDelete }, ref) => {
             onBlur={handleIsErr}
             ref={ref}
           />
-          {isError && <p className={styles.error}>Required field</p>}
+          {isError && <p className={styles.error}>{isError}</p>}
         </>
       ) : (
-        <p className={styles.hint}  ref={ref}>
+        <p className={styles.hint} ref={ref}>
           Hint : User will
           {inputType === "date"
             ? ` select a date`

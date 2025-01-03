@@ -71,6 +71,7 @@ select.edit {
     background-color: transparent !important;
     border: none;
     border-radius: 12px;
+    cursor: pointer;
 }
 
 .edit > option {

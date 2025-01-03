@@ -2,7 +2,8 @@ const validatePassword = (val) => {
   if (val == "") {
     return "Please enter password";
   }
-  const passRegEx = /^(?=.*[!@#$%^&*(),.?":{}|<>])(?=.*\d)(?=.*[a-zA-Z]).{8,}$/;
+  const passRegEx =
+    /^(?=.*[!@#$%^&*(),.?":{}|<>_])(?=.*\d)(?=.*[a-zA-Z]).{8,}$/;
   if (!passRegEx.test(val)) {
     return "Password should be 8 characters long, contain atleast 1 number, 1 special character and letters";
   }
@@ -15,6 +16,7 @@ export const validateEmail = (val) => {
     return "Please enter email";
   }
   const emailRegEx = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+
   if (!emailRegEx.test(val)) {
     return "Please enter valid email";
   }
