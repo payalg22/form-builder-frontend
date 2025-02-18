@@ -3,7 +3,7 @@ import User from "../../components/user/User";
 import { validateLogin } from "../../utils/validate";
 import { isLoggedUser } from "../../utils/session";
 import { login } from "../../services/auth";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { useApp } from "../../context/AppContext";
 
 export default function Login() {
@@ -19,6 +19,16 @@ export default function Login() {
   const { setToken } = useApp();
   const navigate = useNavigate();
   const path = id && role ? `/register/${id}/${role}` : "/register";
+  const [searchParams] = useSearchParams();
+
+  useEffect(() => {
+    const token = searchParams.get("token");
+
+    if (token) {
+      localStorage.setItem("token", token);
+      navigate("/dashboard");
+    }
+  }, [searchParams, navigate]);
 
   useEffect(() => {
     setError({

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./User.module.css";
 import {
@@ -16,6 +16,11 @@ export default function User({ isLogin, fields, action, path }) {
   const label = isLogin ? "Log In" : "Sign Up";
   const link = isLogin ? "Register Now" : "Login";
   const display = isLogin ? "Don't" : "Already";
+  const API_URL = import.meta.env.VITE_API_URL;
+
+  const handleGoogleAuth = async () => {
+    window.location.href = `${API_URL}/auth/google`;
+  };
 
   return (
     <div className={styles.container}>
@@ -30,7 +35,7 @@ export default function User({ isLogin, fields, action, path }) {
           <Form fields={fields} />
           <input type="submit" className={styles.submit} value={label} />
           <p>OR</p>
-          <div className={styles.submit}>
+          <div className={styles.submit} onClick={handleGoogleAuth}>
             <img src={google} className={styles.google} />
             <p>{label} with Google</p>
           </div>
